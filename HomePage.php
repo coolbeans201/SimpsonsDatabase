@@ -39,13 +39,10 @@
         float: left;
         width: 100%;
     }
-    .content {
-        height: 100%;
-        width: 100%;
-    }
     body {
-        background-color: white;
+        background-color: black;
     }
+
     /* simpsons style font */
     @font-face {
         font-family: 'simpsonsFont';
@@ -86,7 +83,45 @@
     .navbar {
         margin-bottom: 0;
     }
-        
+    h1 {
+    	font-family: 'simpsonsFont';
+	color:rgb(255,255,30);
+	text-align: center;
+	font-size: 26px;
+        font-weight: bold;
+        text-shadow: -8px 4px 1px black,
+                     -7px 5px 1px black,
+                     -3px 5px 1px black,
+                     0px 5px 1px black,
+                     0px 4px 1px black,
+                     0px 3px 1px black,
+                     0px -3.5px 1px black,
+                     0px -3.5px 1px black,
+                     5px 0px 1px black,
+                     -4px 4px 1px black,
+                     -4px -2px 1px black;
+	padding-bottom: 15px;
+    }
+    p {
+	margin-right: 100px;
+	margin-left: 100px;
+	margin-bottom: 20px;
+	align: center;
+	font-family: 'simpsonsFont';
+	color:rgb(255,255,30);
+        text-shadow: -8px 4px 1px black,
+                     -7px 5px 1px black,
+                     -3px 5px 1px black,
+                     0px 5px 1px black,
+                     0px 4px 1px black,
+                     0px 3px 1px black,
+                     0px -3.5px 1px black,
+                     0px -3.5px 1px black,
+                     5px 0px 1px black,
+                     -4px 4px 1px black,
+                     -4px -2px 1px black;
+    } 
+    p.groove {border-style: groove;} 
     .navbar-nav {
         float:none;
         margin-bottom: 0;
@@ -120,6 +155,13 @@
     .navbar-nav > .active > a {
         color: yellow !important;
         text-decoration: underline !important;
+    }
+    #summary{
+	display:block;
+	padding:0;
+	border:100px;
+	text-align:center;
+	font-size:18px;
     }
     </style>
 
@@ -168,16 +210,34 @@
                         </ul>
                     </li>
                     <li><a href="#">Explore</a></li> 
-                    <li><a href="#">Team</a></li> 
-                    <li><a href="#">Inspiration</a></li> 
+                    <li><a href="SimpsonsTeam.php">Team</a></li> 
+                    <li><a href="SimpsonsInspiration.php">Inspiration</a></li> 
                 </ul>
             </div>
         </div>
         </nav>
     </div>
 
-    <div class="content">
-        
+    <div id ="summary">
+	<table align="center">
+		<tr>	
+			<td> <div><h1>Welcome to The Simpsons Archive!</h1></div> </td>	
+		</tr>	
+		<tr>
+			<td> 
+				<div id=summary>
+					<p>This databases project will create a webpage that will contain a comprehensive database of everything related to The Simpsons, </p>
+					<p>including character, location, and episode information. Not only can the user retrieve information for everything and everyone </p>
+					<p>who has been on the show at some point, but they can also perform many statistical queries to see how Springfield </p>
+					<p>has changed in its nearly 30 years of fictional existence. We hope you enjoy. D'oh! </p>
+					<br/>
+					<hr>
+				</div>
+			</td>		
+				
+		</tr>
+			
+	</table>
     </div>
 </div>
 
