@@ -1,18 +1,14 @@
+#!/usr/local/bin/php
 <html>
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <head>
     <title>The Simpsons Archive</title>
 	<meta name="keywords" content="The Simpsons Archive, homepage">
 	<meta name="description" content="The Simpsons Archive Database">
 	<meta name="author" content="Kimberly Branch, Timmy Chandy, William Posey, Matt Weingarten">
 	<meta name="copyright" content="Copyright &copy 2017, All Rights Reserved">
-
-    <style type="text/css">
-
+    <style>
+    <style style="text/css">
     html {
         overflow-y: scroll
     }
@@ -26,37 +22,30 @@
         width: 100%;
         overflow: hidden;
     }
-
     .container {
         width: 100%;
         margin: 0 auto;
     }
-
     .banner-img {
         width: 100%;
         border: 5px solid black;
     }
-
     .page {
         height: 100%;
         display: flex;
         flex-direction: column;
     }
-
     .header {
         float: left;
         width: 100%;
     }
-
     .content {
         height: 100%;
         width: 100%;
     }
-
     body {
         background-color: white;
     }
-
     /* simpsons style font */
     @font-face {
         font-family: 'simpsonsFont';
@@ -69,7 +58,6 @@
         font-weight: bold;
         font-style: normal;
     }
-
     /*  this was used to create "Archive" in the banner image,
         left it here in case we wanted to use it for something else (mostly for the shadowing)
      
@@ -95,7 +83,6 @@
                      -4px 4px 1px black,
                      -4px -2px 1px black;
     }*/
-
     .navbar {
         margin-bottom: 0;
     }
@@ -106,7 +93,6 @@
         display: inline-block;;
         text-align: center;
     }
-
     .dropdown:hover .dropdown-menu {
         display: block;
         margin-top: 0;
@@ -116,38 +102,34 @@
         color: white !important;
         font-size: 200% !important;
     }
-
     nav ul ul li a {
         color: black !important;
         font-size: 200% !important;
     }
-
     .navbar-nav > li {
         display: inline-block;
         float: none;
         font-weight: bold;
     }    
-
     .navbar .navbar-collapse {
         text-align: center;
     }   
-
     .navbar-nav > li:dropdown {
         background: white;
     }
-
     .navbar-nav > .active > a {
         color: yellow !important;
         text-decoration: underline !important;
     }
     </style>
 
-    <script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
     // this sets the class to "active" of the currently active link in the navbar
     $(function() {
-        $(".nav li").on("click", function() {
-            $(".nav li").removeClass("active");
-            $(this).addClass("active");
+        $('.nav li').on('click', function() {
+            $('.nav li').removeClass('active');
+            $(this).addClass('active');
         });
     });
     </script>
@@ -161,7 +143,7 @@
         <div id="banner">
             <div id="wrapper">
                 <div id="container">
-                        <img class="banner-img" src="images\bannerFamily.png" alt="Simpsons Image"/>
+                        <img class="banner-img" src="banner.PNG" alt="Simpsons Image"/>
                 </div>
             </div>
         </div>
