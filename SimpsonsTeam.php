@@ -224,7 +224,7 @@
                     </li>
                     <li><a href="#">Explore</a></li> 
                     <li class="active"><a href="#">Team</a></li> 
-                    <li><a href="#">Inspiration</a></li> 
+                    <li><a href="SimpsonsInspiration.php">Inspiration</a></li> 
                 </ul>
             </div>
         </div>
