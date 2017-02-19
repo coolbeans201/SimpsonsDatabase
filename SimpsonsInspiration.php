@@ -244,7 +244,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="SimpsonsHomePage.php">Home</a></li>
                     <li><a href="SimpsonsRetrieval.php">Retrieval</a></li>
-                    <li><a href="#">Explore</a></li> 
+                    <li><a href="SimpsonsExplore.php">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
                     <li class = "active"><a href="#">Inspiration</a></li> 
                 </ul>
