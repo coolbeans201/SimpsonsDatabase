@@ -2,7 +2,7 @@
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <head>
-    <title>The Simpsons Archive</title>
+    <title>Inspiration</title>
 	<meta name="keywords" content="The Simpsons Archive, homepage">
 	<meta name="description" content="The Simpsons Archive Database">
 	<meta name="author" content="Kimberly Branch, Timmy Chandy, William Posey, Matt Weingarten">
@@ -243,13 +243,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="SimpsonsHomePage.php">Home</a></li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Retrieval<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Characters</a></li>
-                            <li><a href="#">Episodes</a></li>
-                            <li><a href="#">Locations</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="SimpsonsRetrieval.php">Retrieval</a></li>
                     <li><a href="#">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
                     <li class = "active"><a href="#">Inspiration</a></li> 
