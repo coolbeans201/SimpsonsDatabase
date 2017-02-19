@@ -202,13 +202,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Retrieval<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Characters</a></li>
-                            <li><a href="#">Episodes</a></li>
-                            <li><a href="#">Locations</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="SimpsonsRetrieval.php">Retrieval</a></li>
                     <li><a href="#">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
                     <li><a href="SimpsonsInspiration.php">Inspiration</a></li> 
