@@ -250,7 +250,7 @@
         </nav>
     </div>
 
-    <div class = "query">
+    <div class = "query" style = "text-align: center">
 	<form name="myform" method="post">
 	<div>
 	<font size = "4" color="yellow">Select type:</font>
