@@ -212,6 +212,24 @@
 	ajaxRequest.open("GET", "getSimpsonsNames.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
+	
+	
+	function fetchData(){
+		var type = document.getElementById('type').value;
+		var secondFilter = document.getElementById('name1').value;
+		$.ajax({
+            type: "POST",
+            url: 'SimpsonsRetrievalResult.php?type=' + type + '&secondFilter=' + secondFilter,
+            data: {action: 'call_this'},
+            success: function (html) {
+				var resultDisplay = document.getElementById('resultDisplay');
+				resultDisplay.innerHTML = html;
+                
+            }
+
+        });
+		
+	}
     </script>
 
 </head>
@@ -263,9 +281,10 @@
 	</div>
 	<div id='ajaxDiv'>Names will be loaded here</div>
 	<div id = 'buttonDiv'>&nbsp;
-	<input type= "button" class="btn btn-success" style = "color:white" value="Retrieve" onclick="window.location.href='SimpsonsRetrievalResult.php'"></input> <!--Button-->
+	<input type= "button" class="btn btn-success" style = "color:white" value="Retrieve" onclick="fetchData();"></input> <!--Button-->
 	</div>
 	</form>
+	<div id='resultDisplay'>Result Will be displayed Here</div>
     </div>
 </div>
 </body>
