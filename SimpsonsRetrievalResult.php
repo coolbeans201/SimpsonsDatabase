@@ -12,7 +12,6 @@
 	// Retrieve data from Query String
 	$type = $_GET['type'];
 	$secondFilter = $_GET['secondFilter'];
-
 	if ($type == 'Character')
 	{
 		$query = "select a.name, a.title as first_episode, b.title as latest_episode, c.episode_count
@@ -22,14 +21,14 @@
       inner join character c on b.character_id = c.id
       where c.ID = ". $secondFilter ."
       and a.title in (select title from (select distinct a.title, a.number_in_series from episode a inner join script_line b on a.id = b.episode_id inner join character c on b.character_id = c.id
-                      where c.name =  'Bart Simpson' order by a.number_in_series)a where rownum = 1))a,
+                      where c.ID = ". $secondFilter ." order by a.number_in_series)a where rownum = 1))a,
       (select distinct c.name, a.title
        from script_line b
        inner join episode a on a.id = b.episode_id
        inner join character c on b.character_id = c.id
        where c.ID = ". $secondFilter ."
        and a.title in (select title from (select distinct a.title, a.number_in_series from episode a inner join script_line b on a.id = b.episode_id inner join character c on b.character_id = c.id
-                       where c.name = 'Bart Simpson' order by a.number_in_series desc)a where rownum = 1))b,
+                       where c.ID = ". $secondFilter ." order by a.number_in_series desc)a where rownum = 1))b,
        (select count(distinct b.episode_id) as episode_count
         from script_line b
         inner join episode a on a.id = b.episode_id
@@ -52,14 +51,14 @@
 				  inner join location c on b.location_id = c.id
 				  where c.ID = ". $secondFilter ."
 				  and a.title in (select title from (select distinct a.title, a.number_in_series from episode a inner join script_line b on a.id = b.episode_id inner join location c on b.location_id = c.id
-								  where c.name = 'Simpson Home' order by a.number_in_series)a where rownum = 1))a,
+								  where c.ID = ". $secondFilter ." order by a.number_in_series)a where rownum = 1))a,
 				  (select distinct c.name, a.title
 				   from script_line b
 				   inner join episode a on a.id = b.episode_id
 				   inner join location c on b.location_id = c.id
 				   where c.ID = ". $secondFilter ."
 				   and a.title in (select title from (select distinct a.title, a.number_in_series from episode a inner join script_line b on a.id = b.episode_id inner join location c on b.location_id = c.id
-								   where c.name = 'Simpson Home' order by a.number_in_series desc)a where rownum = 1))b,
+								   where c.ID = ". $secondFilter ." order by a.number_in_series desc)a where rownum = 1))b,
 				   (select count(distinct b.episode_id) as episode_count
 					from script_line b
 					inner join episode a on a.id = b.episode_id
@@ -69,7 +68,6 @@
 	$statement = oci_parse($connection, $query);
 	oci_execute($statement);
 	
-
 	while($row=oci_fetch_assoc($statement)) {
 		if ($type == 'Character'){
 			echo "<table><tr><td>Name</td><td>" . $row['NAME'] . "</td></tr><tr><td>FIRST EPISODE</td><td>". 
@@ -86,7 +84,6 @@
 				"</td></tr><tr><td>VIDEO_URL</td><td> <a href=".$row['VIDEO_URL']. "target='_blank'>Click here to watch the Episode</a> "
 				."</td></tr></table>";
 			
-
 		}
 		else{
 						echo "<table><tr><td>Name</td><td>" . $row['NAME'] . "</td></tr><tr><td>FIRST EPISODE</td><td>". 
@@ -94,7 +91,6 @@
 				"</td></tr><tr><td>EPISODE Count</td><td>". $row['EPISODE_COUNT'] ."</td></tr></table>";
 		}
 	}
-
 	//
 	// VERY important to close Oracle Database Connections and free statements!
 	//
