@@ -239,8 +239,8 @@
 			<td> <p><b><u>Timmy Chandy</u></b><br/></p> </td>
 			<td> <img/></td>
 		<tr> 
-			<td> <p><b><u>Will Posey</u></b><br/></p> </td>
-			<td> <img/></td>
+			<td> <p><b><u>Will Posey</u></b><br/>Will is a former Electrical Engineering and Computer Engineering graduate from the University of West Florida in Spring 2015. He is currently working as an Air Force Computer Engineer in the Palace Acquire program. Will enjoys playing basketball and skateboarding. His favorite character is Ralph Wiggum on the Simpsons</p> </td>
+			<td> <img src="Simpson Will.JPG" alt = "Will Posey" height = "100" /> </td>
 		</tr>
 		<tr> 
 			<td> <p><b><u>Matt Weingarten</u></b><br/>A former Computer Science graduate from UF in Fall 2015, Matt is currently an Emerging Technologist at Nielsen in Oldsmar, FL. In his free time, he likes to watch and play sports, play Bridge, and browse the Internet. He most identifies with Milhouse on The Simpsons.</p> </td>
