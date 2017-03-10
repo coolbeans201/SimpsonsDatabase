@@ -15,25 +15,27 @@
 	if ($type == 'Character')
 	{
 		$query = "select a.name, a.title as first_episode, b.title as latest_episode, c.episode_count
-			from (select distinct c.name, a.title
-      from script_line b
-      inner join episode a on a.id = b.episode_id
-      inner join character c on b.character_id = c.id
-      where c.ID = ". $secondFilter ."
-      and a.title in (select title from (select distinct a.title, a.number_in_series from episode a inner join script_line b on a.id = b.episode_id inner join character c on b.character_id = c.id
-                      where c.ID = ". $secondFilter ." order by a.number_in_series)a where rownum = 1))a,
-      (select distinct c.name, a.title
-       from script_line b
-       inner join episode a on a.id = b.episode_id
-       inner join character c on b.character_id = c.id
-       where c.ID = ". $secondFilter ."
-       and a.title in (select title from (select distinct a.title, a.number_in_series from episode a inner join script_line b on a.id = b.episode_id inner join character c on b.character_id = c.id
-                       where c.ID = ". $secondFilter ." order by a.number_in_series desc)a where rownum = 1))b,
-       (select count(distinct b.episode_id) as episode_count
-        from script_line b
-        inner join episode a on a.id = b.episode_id
-        inner join character c on c.id = b.character_id
-        where c.ID = ". $secondFilter .")c";
+			      from (select distinct c.name, a.title
+                        from script_line b
+                        inner join episode a on a.id = b.episode_id
+						inner join character c on b.character_id = c.id
+						where c.ID = ". $secondFilter ."
+						and a.title in (select title from (select distinct a.title, a.number_in_series 
+						                from episode a inner join script_line b on a.id = b.episode_id inner join character c on b.character_id = c.id
+                                        where c.ID = ". $secondFilter ." order by a.number_in_series)a where rownum = 1))a,
+                       (select distinct c.name, a.title
+					   from script_line b
+					   inner join episode a on a.id = b.episode_id
+					   inner join character c on b.character_id = c.id
+					   where c.ID = ". $secondFilter ."
+					   and a.title in (select title from (select distinct a.title, a.number_in_series
+					                   from episode a inner join script_line b on a.id = b.episode_id inner join character c on b.character_id = c.id
+                                       where c.ID = ". $secondFilter ." order by a.number_in_series desc)a where rownum = 1))b,
+                      (select count(distinct b.episode_id) as episode_count
+                       from script_line b
+                       inner join episode a on a.id = b.episode_id
+					   inner join character c on c.id = b.character_id
+					   where c.ID = ". $secondFilter .")c";
 	}
 	
 	else if ($type == 'Episode')

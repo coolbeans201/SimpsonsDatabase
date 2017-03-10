@@ -17,6 +17,7 @@
                     overflow: hidden; 
 					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
 					overflow: scroll;
+                    display: none;
 					}
 		.datagrid table td, 
 		.datagrid table th { padding: 3px 10px; }
@@ -255,6 +256,7 @@
             url: 'SimpsonsRetrievalResult.php?type=' + type + '&secondFilter=' + secondFilter,
             data: {action: 'call_this'},
             success: function (html) {
+                document.getElementById('datagrid').style.display = "block";
 				var resultDisplay = document.getElementById('resultDisplay');
 				resultDisplay.innerHTML = html;
             }
@@ -316,7 +318,7 @@
             <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Retrieve" onclick="fetchData();"></input> <!--Button-->
         </div>
 	</form>
-	<nav class="datagrid">
+	<nav class="datagrid" id="datagrid">
 	    <div id='resultDisplay'>Result Will be displayed Here</div>
 	</nav>
 </div>

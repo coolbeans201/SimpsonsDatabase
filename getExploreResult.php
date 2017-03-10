@@ -22,9 +22,14 @@
 	}
 	else if ($queryType == 'AverageRating')
 	{
-		$query = "select season, sum(imdb_rating) as sum_ratings
-		          from episode
-				  group by season
+		$query = "select r.season as season, round((sum_ratings/episode_count),2) as avg_rating, episode_count
+		          from (select season, sum(imdb_rating) as sum_ratings
+		                from episode
+						group by season) r,
+		               (select season, count(distinct id) as episode_count
+		                from episode
+						group by season) e
+				  where r.season = e.season
 				  order by season asc";
 	}
 	else if ($queryType == 'MostSpokenLine')
@@ -33,19 +38,49 @@
 	}
 	else if ($queryType == 'TopCharacterAll')
 	{
-				$query = "select * from episode";
+		$query = "select rownum as rank, name, episode_count
+		          from(select c.name as name, count(distinct scr.episode_id) as episode_count
+				       from script_line scr
+				       inner join episode ep on ep.id = scr.episode_id
+				       inner join character c on c.id = scr.character_id
+				       group by name
+				       order by episode_count desc)
+				  order by rank asc";
 	}
 	else if ($queryType == 'TopCharacterSimpsons')
 	{
-		$query = "select * from episode";		
+		$query = "select rownum as rank, name, episode_count
+		          from(select c.name as name, count(distinct scr.episode_id) as episode_count
+				       from script_line scr
+				       inner join episode ep on ep.id = scr.episode_id
+				       inner join character c on c.id = scr.character_id
+				       where name like '%Simpson%'
+				       group by name
+				       order by episode_count desc)
+				  order by rank asc";		
 	}
 	else if ($queryType == 'TopCharactersNonSimpsons')
 	{
-		$query = "select * from episode";		
+		$query = "select rownum as rank, name, episode_count
+		          from(select c.name as name, count(distinct scr.episode_id) as episode_count
+				       from script_line scr
+				       inner join episode ep on ep.id = scr.episode_id
+				       inner join character c on c.id = scr.character_id
+				       where name not like '%Simpson%'
+				       group by name
+				       order by episode_count desc)
+				  order by rank asc";				
 	}
 	else if ($queryType == 'TopLocations')
 	{
-		$query = "select * from episode";		
+		$query = "select rownum as rank, name, episode_count
+		          from(select l.name as name, count(distinct scr.episode_id) as episode_count
+				       from script_line scr
+				       inner join episode ep on ep.id = scr.episode_id
+				       inner join location l on l.id = scr.location_id
+				       group by name
+					   order by episode_count desc)
+				  order by rank asc";		
 	}
 	else if ($queryType == 'MostWatchedEpisodes')
 	{
@@ -63,7 +98,7 @@
 				       where imdb_rating is not null
 				       order by imdb_rating desc)";		
 	}
-	else /* $queryType == 'Dialogue' */
+	else if($queryType == 'Dialogue')
 	{
 		$query = "select * from episode";		
 	}
@@ -80,34 +115,63 @@
 			if($count == 1)
 				echo "<table><tr><th>Season Number</th><th>Total US Viewers</th></tr>";
 				
-			echo "<tr><td>" . $row['SEASON'] . "</td><td>" . $row['TOTAL_VIEWERS'] . "</td></tr>";
+			echo "<tr><td>" . $row['SEASON'] . 
+			     "</td><td>" . $row['TOTAL_VIEWERS'] .
+			     "</td></tr>";
         }
         else if ($queryType == 'AverageRating')
         {
 			if($count == 1)
-				echo "<table><tr><th>Season Number</th><th>Average IMDB Rating (This is the sum, average is TODO)</th></tr>";
+				echo "<table><tr><th>Season Number</th><th>Average IMDB Rating</th><th>Episode Count</th></tr>";
 
-            echo "<table><tr><td>" . $row['SEASON'] . "</td><td>" . $row['SUM_RATINGS'] . "</td></tr>";
+            echo "<table><tr><td>" . $row['SEASON'] . 
+			     "</td><td>" . $row['AVG_RATING'] .
+				 "</td><td>" . $row['EPISODE_COUNT'] .
+				 "</td></tr>";
         }
         else if ($queryType == 'MostSpokenLine')
         {
-            echo "<table><tr><td>SPOKEN</td></tr></table>";            
+            echo "<table><tr><td>TODO (Most spoken lines overall, or by individual characters?)</td></tr></table>";            
         }
         else if ($queryType == 'TopCharacterAll')
         {
-            echo "<table><tr><td>CHAR_ALL</td></tr></table>";            
+            if($count == 1)
+				echo "<table><tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>";
+
+            echo "<table><tr><td>" . $row['RANK'] . 
+			     "</td><td>" . $row['NAME'] . 
+			     "</td><td>" . $row['EPISODE_COUNT'] . 
+				 "</td></tr>";         
         }
         else if ($queryType == 'TopCharacterSimpsons')
         {
-            echo "<table><tr><td>CHAR_S</td></tr></table>";            
+            if($count == 1)
+				echo "<table><tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>";
+
+            echo "<table><tr><td>" . $row['RANK'] . 
+			     "</td><td>" . $row['NAME'] . 
+			     "</td><td>" . $row['EPISODE_COUNT'] . 
+				 "</td></tr>";             
         }
         else if ($queryType == 'TopCharactersNonSimpsons')
         {
-            echo "<table><tr><td>CHAR_NS</td></tr></table>";            
+            if($count == 1)
+				echo "<table><tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>";
+
+            echo "<table><tr><td>" . $row['RANK'] . 
+			     "</td><td>" . $row['NAME'] . 
+			     "</td><td>" . $row['EPISODE_COUNT'] . 
+				 "</td></tr>";             
         }
         else if ($queryType == 'TopLocations')
         {
-            echo "<table><tr><td>LOCATION</td></tr></table>";            
+            if($count == 1)
+				echo "<table><tr><th>Rank</th><th>Location</th><th>Episode Count</th></tr>";
+
+            echo "<table><tr><td>" . $row['RANK'] . 
+			     "</td><td>" . $row['NAME'] . 
+			     "</td><td>" . $row['EPISODE_COUNT'] . 
+				 "</td></tr>";            
         }
         else if ($queryType == 'MostWatchedEpisodes')
         {
@@ -145,9 +209,9 @@
 				 "</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
 				 "</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
         }
-        else /* $queryType == 'Dialogue' */
+        else if ($queryType == 'Dialogue')
         {
-            echo "<table><tr><td>DIA</td></tr></table>";            
+            echo "<table><tr><td>TODO</td></tr></table>";            
         }
 	}
 	if($count > 0)

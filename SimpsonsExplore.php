@@ -88,6 +88,7 @@
                     overflow: hidden; 
 					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
 					overflow: scroll;
+                    display: none;
 					}
 		.datagrid table td, 
 		.datagrid table th { padding: 3px 10px; }
@@ -258,6 +259,7 @@
 	// div section in the same page.
 	ajaxRequest.onreadystatechange = function(){
 	if(ajaxRequest.readyState == 4){
+        document.getElementById('datagrid').style.display = "block";
 		var ajaxDisplay = document.getElementById('resultDisplay');
 		ajaxDisplay.innerHTML = ajaxRequest.responseText;
 	}
