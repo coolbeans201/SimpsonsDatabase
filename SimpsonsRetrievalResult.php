@@ -70,25 +70,29 @@
 	
 	while($row=oci_fetch_assoc($statement)) {
 		if ($type == 'Character'){
-			echo "<table><tr><td>Name</td><td>" . $row['NAME'] . "</td></tr><tr><td>FIRST EPISODE</td><td>". 
-				$row['FIRST_EPISODE'] . "</td></tr><tr><td>LATEST EPISODE</td><td>". $row['LATEST_EPISODE'] . 
-				"</td></tr><tr><td>EPISODE Count</td><td>". $row['EPISODE_COUNT'] ."</td></tr></table>";
+			echo "<table><tr><td>Name</td><td>" . $row['NAME'] .
+				"</td></tr><tr><td>First Episode</td><td>". $row['FIRST_EPISODE'] .
+				"</td></tr><tr><td>Latest Episode</td><td>". $row['LATEST_EPISODE'] .
+				"</td></tr><tr><td>Episode Count</td><td>". $row['EPISODE_COUNT'] .
+				"</td></tr></table>";
 		}
 		else if($type == 'Episode'){
-						echo "<table><tr><td>AIR_DATE</td><td>" . $row['AIR_DATE'] . "</td></tr><tr><td>SEASON</td><td>". 
-				$row['SEASON'] . "</td></tr><tr><td>NUMBER_IN_SEASON</td><td>". $row['NUMBER_IN_SEASON'] . 
-				
-				"</td></tr><tr><td>US_VIEWERS</td><td>". $row['US_VIEWERS'] .
-				"</td></tr><tr><td>IMDB_RATING</td><td>". $row['IMDB_RATING'] .
-				"</td></tr><tr><td>STILL_URL</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>".  
-				"</td></tr><tr><td>VIDEO_URL</td><td> <a href=".$row['VIDEO_URL']. "target='_blank'>Click here to watch the Episode</a> "
-				."</td></tr></table>";
+			echo "<table><tr><td>Air Date</td><td>" . $row['AIR_DATE'] . 
+					"</td></tr><tr><td>Season</td><td>". $row['SEASON'] . 
+					"</td></tr><tr><td>Number in Season</td><td>". $row['NUMBER_IN_SEASON'] . 
+					"</td></tr><tr><td>US Viewers</td><td>". $row['US_VIEWERS'] .
+					"</td></tr><tr><td>IMDB Rating</td><td>". $row['IMDB_RATING'] .
+					"</td></tr><tr><td>Episode Still</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>".  
+					"</td></tr><tr><td>Video URL</td><td> <a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a> " .
+					"</td></tr></table>";
 			
 		}
 		else{
-						echo "<table><tr><td>Name</td><td>" . $row['NAME'] . "</td></tr><tr><td>FIRST EPISODE</td><td>". 
-				$row['FIRST_EPISODE'] . "</td></tr><tr><td>LATEST EPISODE</td><td>". $row['LATEST_EPISODE'] . 
-				"</td></tr><tr><td>EPISODE Count</td><td>". $row['EPISODE_COUNT'] ."</td></tr></table>";
+			echo "<table><tr><td>Name</td><td>" . $row['NAME'] . 
+					"</td></tr><tr><td>First Episode</td><td>". $row['FIRST_EPISODE'] . 
+					"</td></tr><tr><td>Latest Episode</td><td>". $row['LATEST_EPISODE'] . 
+					"</td></tr><tr><td>Episode Count</td><td>". $row['EPISODE_COUNT'] .
+					"</td></tr></table>";
 		}
 	}
 	//

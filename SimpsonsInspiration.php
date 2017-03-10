@@ -259,7 +259,7 @@
 					<td> <form name="myform" method="post">
 						<p>The Simpsons has been on for nearly 30 years now, and for any successful long-running show, there comes a lot of data with it, whether it be in the form of episodes, locations, and/or characters. We've therefore created this website to allow users who are fans of The Simpsons to browse everything that has ever happened on the show. We hope you enjoy!</p>
 						<div id = 'buttonDiv'>&nbsp;
-						<input type= "button" class="btn btn-success" style = "display: block; margin: 0 auto; color:white" value="Calculate Tuples" onclick="ajaxFunction();"></input> <!--Button-->
+						<input type= "button" class="btn" style = "display: block; margin: 0 auto; color:white; background-color: #4BB2F5;" value="Calculate Tuples" onclick="ajaxFunction();"></input> <!--Button-->
 						
 						</form>
 					</td>
@@ -269,7 +269,7 @@
 			</table>
 	</div>
 	
-	<div id='resultDiv'></div>
+	<div id='resultDiv' style=></div>
 </div>
 
 </body>

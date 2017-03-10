@@ -13,14 +13,14 @@
 	$statement = oci_parse($connection, $query);
 	oci_execute($statement);
 	
-	echo "<table border='2px solid white' style='margin-left: auto; margin-right: auto'>\n";
+	echo "<table border='2px solid white' style='margin-left: auto; margin-right: auto; background-color: white; color: #4BB2F5;'>\n";
 
 	echo "<tr>\n";
-	echo '<th><font color = "yellow">Total Tuples</th>';
+	echo '<th>Total Tuples</th>';
 	echo '</tr>';
 	while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
 				foreach ($row as $item) {
-					echo '    <td><font color = "yellow">' . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+					echo '    <td>' . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
 				}
 				echo "</tr>\n";
 	}

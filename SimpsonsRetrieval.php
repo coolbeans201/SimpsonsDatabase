@@ -9,6 +9,26 @@
 	<meta name="copyright" content="Copyright &copy 2017, All Rights Reserved">
     <style>
     <style style="text/css">
+
+    .datagrid table { border-collapse: collapse;} 
+	    .datagrid {
+					font: Arial, Helvetica, sans-serif; 
+					background: #fff; 
+                    overflow: hidden; 
+					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
+					overflow: scroll;
+					}
+		.datagrid table td, 
+		.datagrid table th { padding: 3px 10px; }
+		.datagrid table td { font-size: 20px; 
+                             color: black;}
+		.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #36752D; } 
+		.datagrid table thead th:first-child { border: none; }
+		.datagrid table tbody td { color: black; border-left: 1px solid #4BB2F5;font-size: 20px;font-weight: normal; }
+		.datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
+		.datagrid table tbody td:first-child { border-left: none; }
+		.datagrid table tbody tr:last-child td { border-bottom: none; }
+
     html {
         overflow-y: scroll
     }
@@ -82,26 +102,30 @@
     }*/
     .navbar {
         margin-bottom: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: black;
     }
     h1 {
     	font-family: 'simpsonsFont';
 	color:rgb(255,255,30);
 	text-align: center;
 	font-size: 26px;
-        font-weight: bold;
-        text-shadow: -8px 4px 1px black,
-                     -7px 5px 1px black,
-                     -3px 5px 1px black,
-                     0px 5px 1px black,
-                     0px 4px 1px black,
-                     0px 3px 1px black,
-                     0px -3.5px 1px black,
-                     0px -3.5px 1px black,
-                     5px 0px 1px black,
-                     -4px 4px 1px black,
-                     -4px -2px 1px black;
+    font-weight: bold;
+    text-shadow: -8px 4px 1px black,
+                 -7px 5px 1px black,
+                 -3px 5px 1px black,
+                  0px 5px 1px black,
+                  0px 4px 1px black,
+                  0px 3px 1px black,
+                  0px -3.5px 1px black,
+                  0px -3.5px 1px black,
+                  5px 0px 1px black,
+                 -4px 4px 1px black,
+                 -4px -2px 1px black;
 	padding-bottom: 15px;
     }
+
     p {
 	margin-right: 100px;
 	margin-left: 100px;
@@ -109,25 +133,28 @@
 	align: center;
 	font-family: 'simpsonsFont';
 	color:rgb(255,255,30);
-        text-shadow: -8px 4px 1px black,
-                     -7px 5px 1px black,
-                     -3px 5px 1px black,
-                     0px 5px 1px black,
-                     0px 4px 1px black,
-                     0px 3px 1px black,
-                     0px -3.5px 1px black,
-                     0px -3.5px 1px black,
-                     5px 0px 1px black,
-                     -4px 4px 1px black,
-                     -4px -2px 1px black;
+    text-shadow: -8px 4px 1px black,
+                 -7px 5px 1px black,
+                 -3px 5px 1px black,
+                  0px 5px 1px black,
+                  0px 4px 1px black,
+                  0px 3px 1px black,
+                  0px -3.5px 1px black,
+                  0px -3.5px 1px black,
+                  5px 0px 1px black,
+                 -4px 4px 1px black,
+                 -4px -2px 1px black;
     } 
+
     p.groove {border-style: groove;} 
+
     .navbar-nav {
         float:none;
         margin-bottom: 0;
         display: inline-block;;
         text-align: center;
     }
+
     .dropdown:hover .dropdown-menu {
         display: block;
         margin-top: 0;
@@ -137,25 +164,31 @@
         color: white !important;
         font-size: 200% !important;
     }
+
     nav ul ul li a {
         color: black !important;
         font-size: 200% !important;
     }
+
     .navbar-nav > li {
         display: inline-block;
         float: none;
         font-weight: bold;
     }    
+
     .navbar .navbar-collapse {
         text-align: center;
     }   
+
     .navbar-nav > li:dropdown {
         background: white;
     }
+
     .navbar-nav > .active > a {
         color: yellow !important;
         text-decoration: underline !important;
     }
+
     #summary{
 	display:block;
 	padding:0;
@@ -224,7 +257,6 @@
             success: function (html) {
 				var resultDisplay = document.getElementById('resultDisplay');
 				resultDisplay.innerHTML = html;
-                
             }
 
         });
@@ -246,7 +278,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-inverse" style="background-color: black;">
+        <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -268,24 +300,25 @@
         </nav>
     </div>
 
-    <div class = "query" style = "text-align: center">
+<div class = "query" style = "text-align: center;">
 	<form name="myform" method="post">
-	<div>
-	<font size = "4" color="yellow">Select type:</font>
-	<select name="type" id = "type" onchange="ajaxFunction();">
-		<option value="a">-Select a Type-</option>
-		<option value="Character">Character</option>
-		<option value="Episode">Episode</option>
-		<option value="Location">Location</option>
-	</select>
-	</div>
-	<div id='ajaxDiv'>Names will be loaded here</div>
-	<div id = 'buttonDiv'>&nbsp;
-	<input type= "button" class="btn btn-success" style = "color:white" value="Retrieve" onclick="fetchData();"></input> <!--Button-->
-	</div>
+        <div>
+            <font size = "4" color="yellow">Select Type:</font>
+            <select name="type" id = "type" onchange="ajaxFunction();">
+                <option value="a">-Select a Type-</option>
+                <option value="Character">Character</option>
+                <option value="Episode">Episode</option>
+                <option value="Location">Location</option>
+            </select>
+        </div>
+        <div id='ajaxDiv'>Names will be loaded here</div>
+        <div id = 'buttonDiv'>&nbsp;
+            <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Retrieve" onclick="fetchData();"></input> <!--Button-->
+        </div>
 	</form>
-	<div id='resultDisplay'>Result Will be displayed Here</div>
-    </div>
+	<nav class="datagrid">
+	    <div id='resultDisplay'>Result Will be displayed Here</div>
+	</nav>
 </div>
 </body>
 </html>

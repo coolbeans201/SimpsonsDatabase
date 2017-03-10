@@ -80,6 +80,26 @@
                      -4px 4px 1px black,
                      -4px -2px 1px black;
     }*/
+
+    .datagrid table { border-collapse: collapse;} 
+	    .datagrid {
+					font: Arial, Helvetica, sans-serif; 
+					background: #fff; 
+                    overflow: hidden; 
+					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
+					overflow: scroll;
+					}
+		.datagrid table td, 
+		.datagrid table th { padding: 3px 10px; }
+		.datagrid table td { font-size: 20px; 
+                             color: black;}
+		.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #36752D; } 
+		.datagrid table thead th:first-child { border: none; }
+		.datagrid table tbody td { color: black; border-left: 1px solid #4BB2F5;font-size: 20px;font-weight: normal; }
+		.datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
+		.datagrid table tbody td:first-child { border-left: none; }
+		.datagrid table tbody tr:last-child td { border-bottom: none; }
+
     .navbar {
         margin-bottom: 0;
     }
@@ -212,6 +232,49 @@
 	ajaxRequest.open("GET", "getSimpsonsAdditionalInfo.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
+
+    function getData(){
+	var ajaxRequest;  // The variable that makes Ajax possible!
+			
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	}catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		}catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	// Create a function that will receive data 
+	// sent from the server and will update
+	// div section in the same page.
+	ajaxRequest.onreadystatechange = function(){
+	if(ajaxRequest.readyState == 4){
+		var ajaxDisplay = document.getElementById('resultDisplay');
+		ajaxDisplay.innerHTML = ajaxRequest.responseText;
+	}
+	}
+	// Now get the value from user and pass it to
+	// server script.
+    var queryType = document.getElementById('query').value;
+    if(document.getElementById('name1') && document.getElementById('name1').value)
+        var dialogueName = document.getElementById('name1').value;
+    else
+        var dialogueName = "";
+		 	 
+	var queryString = "?queryType=" + queryType + "&dialogueName=" + dialogueName;
+	ajaxRequest.open("GET", "getExploreResult.php" + queryString, true);
+	ajaxRequest.send(null); 
+    }
+
     </script>
 
 </head>
@@ -251,28 +314,31 @@
     </div>
 
     <div class = "query" style = "text-align: center">
-	<form name="myform" method="post">
-	<div>
-	<font size = "4" color="yellow">Select query:</font>
-	<select name="query" id = "query" onchange="ajaxFunction();">
-		<option value="a">-Select a Query-</option>
-		<option value="TotalViewing">Total Viewing by Season</option>
-		<option value="AverageRating">Average Rating by Season</option>
-		<option value="MostSpokenLine">Most Spoken Line by Character</option>
-		<option value="TopCharacterAll">Top Characters (All)</option>
-		<option value="TopCharacterSimpsons">Top Characters (Simpsons)</option>
-		<option value="TopCharactersNonSimpsons">Top Characters (Non-Simpsons)</option>
-		<option value="TopLocations">Top Locations</option>
-		<option value="MostWatchedEpisodes">Most Watched Episodes</option>
-		<option value="HighestRatedEpisodes">Highest Rated Episodes</option>
-		<option value="Dialogue">Total Dialogue by Character</option>
-	</select>
-	</div>
-	<div id='ajaxDiv'>Additional info will be loaded here if necessary</div>
-	<div id = 'buttonDiv'>&nbsp;
-	<input type= "button" class="btn btn-success" style = "color:white" value="Compute" onclick="#"></input> <!--Button-->
-	</div>
-	</form>
+        <form name="myform" method="post">
+            <div>
+                <font size = "4" color="yellow">Select query:</font>
+                <select name="query" id = "query" onchange="ajaxFunction();">
+                    <option value="a">-Select a Query-</option>
+                    <option value="TotalViewing">Total Viewing by Season</option>
+                    <option value="AverageRating">Average Rating by Season</option>
+                    <option value="MostSpokenLine">Most Spoken Line by Character</option>
+                    <option value="TopCharacterAll">Top Characters (All)</option>
+                    <option value="TopCharacterSimpsons">Top Characters (Simpsons)</option>
+                    <option value="TopCharactersNonSimpsons">Top Characters (Non-Simpsons)</option>
+                    <option value="TopLocations">Top Locations</option>
+                    <option value="MostWatchedEpisodes">Most Watched Episodes</option>
+                    <option value="HighestRatedEpisodes">Highest Rated Episodes</option>
+                    <option value="Dialogue">Total Dialogue by Character</option>
+                </select>
+            </div>
+            <div id='ajaxDiv'>Additional info will be loaded here if necessary</div>
+            <div id = 'buttonDiv'>&nbsp;
+                <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Compute" onclick="getData();"></input> <!--Button-->
+            </div>
+        </form>
+        <nav class="datagrid" id="datagrid">
+            <div id='resultDisplay'>Result Will be displayed Here</div>
+        </nav>
     </div>
 </div>
 </body>
