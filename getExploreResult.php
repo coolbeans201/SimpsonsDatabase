@@ -12,7 +12,6 @@
 	// Retrieve data from Query String
 	$queryType = $_GET['queryType'];
 	$queryName = $_GET['dialogueName'];
-
 	if ($queryType == 'TotalViewing')
 	{
 		$query = "select season, sum(us_viewers) as total_viewers 
@@ -102,124 +101,143 @@
 	{
 		$query = "select * from episode";		
 	}
-
 	$statement = oci_parse($connection, $query);
 	oci_execute($statement);
-
-	$count = 0;
-	
-	while($row=oci_fetch_assoc($statement)) {
-		$count = $count + 1;
-		if ($queryType == 'TotalViewing')
-        {	
-			if($count == 1)
-				echo "<table><tr><th>Season Number</th><th>Total US Viewers</th></tr>";
-				
-			echo "<tr><td>" . $row['SEASON'] . 
-			     "</td><td>" . $row['TOTAL_VIEWERS'] .
-			     "</td></tr>";
-        }
+	if ($queryType == 'TotalViewing')
+        {
+		echo "<table border='1'>\n";				
+		echo '<tr><th>Season Number</th><th>Total US Viewers</th></tr>';
+		while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+			foreach ($row as $item) 
+			{
+				echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+			}
+			echo "</tr>\n";
+		}
+		echo "</table><br>";
+	}
         else if ($queryType == 'AverageRating')
         {
-			if($count == 1)
-				echo "<table><tr><th>Season Number</th><th>Average IMDB Rating</th><th>Episode Count</th></tr>";
-
-            echo "<table><tr><td>" . $row['SEASON'] . 
-			     "</td><td>" . $row['AVG_RATING'] .
-				 "</td><td>" . $row['EPISODE_COUNT'] .
-				 "</td></tr>";
-        }
-        else if ($queryType == 'MostSpokenLine')
-        {
-            echo "<table><tr><td>TODO (Most spoken lines overall, or by individual characters?)</td></tr></table>";            
-        }
-        else if ($queryType == 'TopCharacterAll')
-        {
-            if($count == 1)
-				echo "<table><tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>";
-
-            echo "<table><tr><td>" . $row['RANK'] . 
-			     "</td><td>" . $row['NAME'] . 
-			     "</td><td>" . $row['EPISODE_COUNT'] . 
-				 "</td></tr>";         
-        }
-        else if ($queryType == 'TopCharacterSimpsons')
-        {
-            if($count == 1)
-				echo "<table><tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>";
-
-            echo "<table><tr><td>" . $row['RANK'] . 
-			     "</td><td>" . $row['NAME'] . 
-			     "</td><td>" . $row['EPISODE_COUNT'] . 
-				 "</td></tr>";             
-        }
-        else if ($queryType == 'TopCharactersNonSimpsons')
-        {
-            if($count == 1)
-				echo "<table><tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>";
-
-            echo "<table><tr><td>" . $row['RANK'] . 
-			     "</td><td>" . $row['NAME'] . 
-			     "</td><td>" . $row['EPISODE_COUNT'] . 
-				 "</td></tr>";             
-        }
-        else if ($queryType == 'TopLocations')
-        {
-            if($count == 1)
-				echo "<table><tr><th>Rank</th><th>Location</th><th>Episode Count</th></tr>";
-
-            echo "<table><tr><td>" . $row['RANK'] . 
-			     "</td><td>" . $row['NAME'] . 
-			     "</td><td>" . $row['EPISODE_COUNT'] . 
-				 "</td></tr>";            
-        }
-        else if ($queryType == 'MostWatchedEpisodes')
-        {
-			if($count == 1) {
-				echo "<table><tr><th>Rank</th><th>Title</th><th>US Viewers</th>
-								 <th>Episode Number</th><th>Season Number</th>
-								 <th>Number in Season</th><th>Episode Still</th>
-								 <th>URL</th></tr>";
+		echo "<table border='1'>\n";
+		echo '<tr><th>Season Number</th><th>Average IMDB Rating</th><th>Episode Count</th></tr>';
+                while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+			foreach ($row as $item) 
+			{
+				echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
 			}
-				
-			echo "<tr><td>" . $row['RANK'] . 
-			     "</td><td>" . $row['TITLE'] . 
-				 "</td><td>" . $row['US_VIEWERS'] . 
-				 "</td><td>" . $row['NUMBER_IN_SERIES'] . 
-				 "</td><td>" . $row['SEASON'] . 
-				 "</td><td>" . $row['NUMBER_IN_SEASON'] . 
-				 "</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
-				 "</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
+			echo "</tr>\n";
+		}
+		echo "</table><br>";
         }
-        else if ($queryType == 'HighestRatedEpisodes')
-        {
-            if($count == 1) {
-				echo "<table><tr><th>Rank</th><th>Title</th><th>IMDB Rating</th>
-								 <th>Episode Number</th><th>Season Number</th>
-								 <th>Number in Season</th><th>Episode Still</th>
-								 <th>URL</th></tr>";
-			}
-				
-			echo "<tr><td>" . $row['RANK'] . 
-			     "</td><td>" . $row['TITLE'] . 
-				 "</td><td>" . $row['IMDB_RATING'] . 
-				 "</td><td>" . $row['NUMBER_IN_SERIES'] . 
-				 "</td><td>" . $row['SEASON'] . 
-				 "</td><td>" . $row['NUMBER_IN_SEASON'] . 
-				 "</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
-				 "</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
-        }
-        else if ($queryType == 'Dialogue')
-        {
-            echo "<table><tr><td>TODO</td></tr></table>";            
-        }
+	else if ($queryType == 'MostSpokenLine')
+	{
+		echo "<table border='1'>\n";
+		echo "<tr><td>TODO (Most spoken lines overall, or by individual characters?)</td></tr></table>";
 	}
-	if($count > 0)
-		echo "</table";
-
-	//
-	// VERY important to close Oracle Database Connections and free statements!
-	//
+	else if ($queryType == 'TopCharacterAll')
+	{
+		echo "<table border='1'>\n";
+		echo '<tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>';
+		while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+			foreach ($row as $item) 
+			{
+				echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+			}
+			echo "</tr>\n";
+		}
+		echo "</table><br>";
+	}
+	else if ($queryType == 'TopCharacterSimpsons')
+        {
+		echo "<table border='1'>\n";
+		echo '<tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>';
+		while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+			foreach ($row as $item) 
+			{
+				echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+			}
+			echo "</tr>\n";
+		}
+		echo "</table><br>";
+	}
+	else if ($queryType == 'TopCharactersNonSimpsons')
+	{
+		echo "<table border='1'>\n";
+		echo '<tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>';
+		while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+			foreach ($row as $item) 
+			{
+				echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+			}
+			echo "</tr>\n";
+		}
+		echo "</table><br>";
+	}
+	else if ($queryType == 'TopLocations')
+        {
+		echo "<table border='1'>\n";
+		echo '<tr><th>Rank</th><th>Location</th><th>Episode Count</th></tr>';
+		while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+			foreach ($row as $item) 
+			{
+				echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+			}
+			echo "</tr>\n";
+		}
+		echo "</table><br>";
+	}
+	else if ($queryType == 'MostWatchedEpisodes')
+        {
+		echo "<table border='1'>\n";
+		echo '<tr><th>Rank</th><th>Title</th><th>US Viewers</th>
+								 <th>Episode Number</th><th>Season Number</th>
+								 <th>Number in Season</th><th>Episode Still</th>
+								 <th>URL</th></tr>';
+		$count = 0;
+		while($row=oci_fetch_assoc($statement)) {
+			$count = $count + 1;
+			if($count != 1)
+			{
+				echo "<tr><td>" . $row['RANK'] . 
+			        "</td><td>" . $row['TITLE'] . 
+				"</td><td>" . $row['IMDB_RATING'] . 
+				"</td><td>" . $row['NUMBER_IN_SERIES'] . 
+				"</td><td>" . $row['SEASON'] . 
+				"</td><td>" . $row['NUMBER_IN_SEASON'] . 
+				"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
+				"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
+			}
+		}
+		echo "</table><br>";
+	}
+	else if ($queryType == 'HighestRatedEpisodes')
+        {
+		echo "<table border='1'>\n";
+		echo '<tr><th>Rank</th><th>Title</th><th>IMDB Rating</th>
+								 <th>Episode Number</th><th>Season Number</th>
+								 <th>Number in Season</th><th>Episode Still</th>
+								 <th>URL</th></tr>';
+		$count = 0;
+		while($row=oci_fetch_assoc($statement)) {
+			$count = $count + 1;
+			if($count != 1)
+			{
+				echo "<tr><td>" . $row['RANK'] . 
+			        "</td><td>" . $row['TITLE'] . 
+				"</td><td>" . $row['IMDB_RATING'] . 
+				"</td><td>" . $row['NUMBER_IN_SERIES'] . 
+				"</td><td>" . $row['SEASON'] . 
+				"</td><td>" . $row['NUMBER_IN_SEASON'] . 
+				"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
+				"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";			}
+		}
+		echo "</table><br>";
+	}
+	else if ($queryType == 'Dialogue')
+	{
+		echo "<table border='1'>\n";
+		echo "<tr><td>TODO</td></tr>";
+	}
 	oci_free_statement($statement);
 	oci_close($connection);
 ?>
