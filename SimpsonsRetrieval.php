@@ -102,10 +102,11 @@
                      -4px -2px 1px black;
     }*/
     .navbar {
-        margin-bottom: 0;
+        margin-bottom: 10px;
         margin-left: 5px;
         margin-right: 5px;
         background-color: black;
+        border-bottom: 7.5px solid #4BB2F5;
     }
     h1 {
     	font-family: 'simpsonsFont';

@@ -187,49 +187,42 @@
 		echo "</table><br>";
 	}
 	else if ($queryType == 'MostWatchedEpisodes')
-        {
+	{
 		echo "<table border='1'>\n";
 		echo '<tr><th>Rank</th><th>Title</th><th>US Viewers</th>
 								 <th>Episode Number</th><th>Season Number</th>
 								 <th>Number in Season</th><th>Episode Still</th>
 								 <th>URL</th></tr>';
-		$count = 0;
+
 		while($row=oci_fetch_assoc($statement)) {
-			$count = $count + 1;
-			if($count != 1)
-			{
-				echo "<tr><td>" . $row['RANK'] . 
-			        "</td><td>" . $row['TITLE'] . 
-				"</td><td>" . $row['IMDB_RATING'] . 
-				"</td><td>" . $row['NUMBER_IN_SERIES'] . 
-				"</td><td>" . $row['SEASON'] . 
-				"</td><td>" . $row['NUMBER_IN_SEASON'] . 
-				"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
-				"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
-			}
+			echo "<tr><td>" . $row['RANK'] . 
+				"</td><td>" . $row['TITLE'] . 
+			"</td><td>" . $row['US_VIEWERS'] . 
+			"</td><td>" . $row['NUMBER_IN_SERIES'] . 
+			"</td><td>" . $row['SEASON'] . 
+			"</td><td>" . $row['NUMBER_IN_SEASON'] . 
+			"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
+			"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
 		}
 		echo "</table><br>";
 	}
 	else if ($queryType == 'HighestRatedEpisodes')
-        {
+	{
 		echo "<table border='1'>\n";
 		echo '<tr><th>Rank</th><th>Title</th><th>IMDB Rating</th>
 								 <th>Episode Number</th><th>Season Number</th>
 								 <th>Number in Season</th><th>Episode Still</th>
 								 <th>URL</th></tr>';
-		$count = 0;
+								 
 		while($row=oci_fetch_assoc($statement)) {
-			$count = $count + 1;
-			if($count != 1)
-			{
-				echo "<tr><td>" . $row['RANK'] . 
-			        "</td><td>" . $row['TITLE'] . 
-				"</td><td>" . $row['IMDB_RATING'] . 
-				"</td><td>" . $row['NUMBER_IN_SERIES'] . 
-				"</td><td>" . $row['SEASON'] . 
-				"</td><td>" . $row['NUMBER_IN_SEASON'] . 
-				"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
-				"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";			}
+			echo "<tr><td>" . $row['RANK'] . 
+				"</td><td>" . $row['TITLE'] . 
+			"</td><td>" . $row['IMDB_RATING'] . 
+			"</td><td>" . $row['NUMBER_IN_SERIES'] . 
+			"</td><td>" . $row['SEASON'] . 
+			"</td><td>" . $row['NUMBER_IN_SEASON'] . 
+			"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
+			"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
 		}
 		echo "</table><br>";
 	}
