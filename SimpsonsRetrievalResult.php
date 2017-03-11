@@ -40,7 +40,7 @@
 	
 	else if ($type == 'Episode')
 	{
-		$query = "select air_date, season, number_in_season, number_in_series, us_viewers, imdb_rating, still_url, video_url
+		$query = "select TO_CHAR(air_date, 'MM/DD/YY') AS AIR_DATE, season, number_in_season, number_in_series, us_viewers, imdb_rating, still_url, video_url
 					from episode
 				where ID = ". $secondFilter;
 	}
