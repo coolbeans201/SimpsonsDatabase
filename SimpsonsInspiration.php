@@ -50,7 +50,6 @@
     body {
         background-color: black;
     }
-
     /* simpsons style font */
     @font-face {
         font-family: 'simpsonsFont';
@@ -248,6 +247,7 @@
                     <li><a href="SimpsonsExplore.php">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
                     <li class = "active"><a href="#">Inspiration</a></li> 
+		    <li><a href="SimpsonsAdmin.php">Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -270,7 +270,7 @@
 			</table>
 	</div>
 	
-	<div id='resultDiv' style=></div>
+	<div id='resultDiv'></div>
 </div>
 
 </body>
