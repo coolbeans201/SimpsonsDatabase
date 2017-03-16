@@ -9,7 +9,6 @@
 	<meta name="copyright" content="Copyright &copy 2017, All Rights Reserved">
     <style>
     <style style="text/css">
-
     .datagrid table { border-collapse: collapse;} 
 	    .datagrid {
 					font: Arial, Helvetica, sans-serif; 
@@ -29,7 +28,6 @@
 		.datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
 		.datagrid table tbody td:first-child { border-left: none; }
 		.datagrid table tbody tr:last-child td { border-bottom: none; }
-
     html {
         overflow-y: scroll
     }
@@ -63,7 +61,6 @@
     body {
         background-color: black;
     }
-
     /* simpsons style font */
     @font-face {
         font-family: 'simpsonsFont';
@@ -127,7 +124,6 @@
                  -4px -2px 1px black;
 	padding-bottom: 15px;
     }
-
     p {
 	margin-right: 100px;
 	margin-left: 100px;
@@ -147,16 +143,13 @@
                  -4px 4px 1px black,
                  -4px -2px 1px black;
     } 
-
     p.groove {border-style: groove;} 
-
     .navbar-nav {
         float:none;
         margin-bottom: 0;
         display: inline-block;;
         text-align: center;
     }
-
     .dropdown:hover .dropdown-menu {
         display: block;
         margin-top: 0;
@@ -166,31 +159,25 @@
         color: white !important;
         font-size: 200% !important;
     }
-
     nav ul ul li a {
         color: black !important;
         font-size: 200% !important;
     }
-
     .navbar-nav > li {
         display: inline-block;
         float: none;
         font-weight: bold;
     }    
-
     .navbar .navbar-collapse {
         text-align: center;
     }   
-
     .navbar-nav > li:dropdown {
         background: white;
     }
-
     .navbar-nav > .active > a {
         color: yellow !important;
         text-decoration: underline !important;
     }
-
     #summary{
 	display:block;
 	padding:0;
@@ -261,7 +248,6 @@
 				var resultDisplay = document.getElementById('resultDisplay');
 				resultDisplay.innerHTML = html;
             }
-
         });
 		
 	}
@@ -296,7 +282,8 @@
                     <li class="active"><a href="#">Retrieval</a></li>
                     <li><a href="SimpsonsExplore.php">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
-                    <li><a href="SimpsonsInspiration.php">Inspiration</a></li> 
+                    <li><a href="SimpsonsInspiration.php">Inspiration</a></li>
+		    <li><a href="SimpsonsAdmin.php">Admin</a></li> 
                 </ul>
             </div>
         </div>
