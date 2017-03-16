@@ -265,20 +265,20 @@
 	var queryString = "?type=" + type;
 	if(type == "Character")
 	{
-		queryString = queryString + "?id=" + document.getElementById('characterid').value + "?name=" + document.getElementById('charactername').value + "?gender=" + document.getElementById('gender').value;
+		queryString = queryString + "&id=" + document.getElementById('characterid').value + "&name=" + document.getElementById('charactername').value + "&gender=" + document.getElementById('gender').value;
 	}
 	else if(type == "Episode")
 	{
-		queryString = queryString + "?id=" + document.getElementById('episodeid').value + "?title=" + document.getElementById('episodetitle').value + "?date=" + document.getElementById('episodedate').value + "?season=" + document.getElementById('episodeseason').value + "?numberinseason=" + document.getElementById('episodenumberinseason').value + "?numberinseries=" + document.getElementById('episodenumberinseries').value + "?viewers=" + document.getElementById('episodeviewers').value + "?rating=" + document.getElementById('episoderating').value + "?stillurl=" + document.getElementById('episodestillurl').value + "?videourl=" + document.getElementById('episodevideourl').value;
+		queryString = queryString + "&id=" + document.getElementById('episodeid').value + "&title=" + document.getElementById('episodetitle').value + "&date=" + document.getElementById('episodedate').value + "&season=" + document.getElementById('episodeseason').value + "&numberinseason=" + document.getElementById('episodenumberinseason').value + "&numberinseries=" + document.getElementById('episodenumberinseries').value + "&viewers=" + document.getElementById('episodeviewers').value + "&rating=" + document.getElementById('episoderating').value + "&stillurl=" + document.getElementById('episodestillurl').value + "&videourl=" + document.getElementById('episodevideourl').value;
 
 	}
 	else if(type == "Location")
 	{
-		queryString = queryString + "?id=" + document.getElementById('locationid').value + "?name=" + document.getElementById('locationname').value;
+		queryString = queryString + "&id=" + document.getElementById('locationid').value + "&name=" + document.getElementById('locationname').value;
 	}
 	else
 	{
-		queryString = queryString + "?id=" + document.getElementById('scriptid').value + "?episodeid=" + document.getElementById('scriptepisodeid').value + "?linenumber=" + document.getElementById('scriptlinenumber').value + "?rawtext=" + document.getElementById('scriptrawtext').value + "?timestamp=" + document.getElementById('scripttimestamp').value + "?speakingline=?" + document.getElementById('scriptspeakingline').value + "?characterid=" + document.getElementById('scriptcharacterid').value + "?locationid=" + document.getElementById('scriptlocationid').value + "?character=" + document.getElementById('scriptcharacter').value + "?location=" + document.getElementById('scriptlocation').value + "?spokenword=" + document.getElementById('scriptspokenword').value + "?wordcount=" + document.getElementById('scriptwordcount').value;
+		queryString = queryString + "&id=" + document.getElementById('scriptid').value + "&episodeid=" + document.getElementById('scriptepisodeid').value + "&linenumber=" + document.getElementById('scriptlinenumber').value + "&rawtext=" + document.getElementById('scriptrawtext').value + "&timestamp=" + document.getElementById('scripttimestamp').value + "&speakingline=?" + document.getElementById('scriptspeakingline').value + "&characterid=" + document.getElementById('scriptcharacterid').value + "&locationid=" + document.getElementById('scriptlocationid').value + "&character=" + document.getElementById('scriptcharacter').value + "&location=" + document.getElementById('scriptlocation').value + "&spokenword=" + document.getElementById('scriptspokenword').value + "&wordcount=" + document.getElementById('scriptwordcount').value;
 	}	 	 
 	ajaxRequest.open("GET", "insertSimpsonsTuples.php" + queryString, true);
 	ajaxRequest.send(null); 	
@@ -322,6 +322,7 @@
     </div>
 
 <div class = "query" style = "text-align: center;">
+	<form name="myform" method="post">
         <font size = "4" color="yellow">Select Type:</font>
         <select name="type" id = "type">
             <option value="a">-Select an Object-</option>
@@ -373,8 +374,9 @@
 	</div>
 	</div>
         <div id = 'buttonDiv'>&nbsp;
-            <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Insert" onclick="ajaxFunction();"></input> <!--Button-->
+            <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Insert" onclick="ajaxFunction();"></input>
         </div>
+	</form>
 	<div id = 'ajaxDiv'>Result will load here</div>
 </div>
 </body>
