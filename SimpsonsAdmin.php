@@ -230,7 +230,6 @@
             $(this).addClass('active');
         });
     });
-    onload=function() {Type(0);};
     function ajaxFunction(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
@@ -282,8 +281,7 @@
 		queryString = queryString + "?id=" + document.getElementById('scriptid').value + "?episodeid=" + document.getElementById('scriptepisodeid').value + "?linenumber=" + document.getElementById('scriptlinenumber').value + "?rawtext=" + document.getElementById('scriptrawtext').value + "?timestamp=" + document.getElementById('scripttimestamp').value + "?speakingline=?" + document.getElementById('scriptspeakingline').value + "?characterid=" + document.getElementById('scriptcharacterid').value + "?locationid=" + document.getElementById('scriptlocationid').value + "?character=" + document.getElementById('scriptcharacter').value + "?location=" + document.getElementById('scriptlocation').value + "?spokenword=" + document.getElementById('scriptspokenword').value + "?wordcount=" + document.getElementById('scriptwordcount').value;
 	}	 	 
 	ajaxRequest.open("GET", "insertSimpsonsTuples.php" + queryString, true);
-	ajaxRequest.send(null); 
-    }	
+	ajaxRequest.send(null); 	
 	}
     </script>
 
@@ -324,7 +322,6 @@
     </div>
 
 <div class = "query" style = "text-align: center;">
-	<form name="myform" method="post">
         <font size = "4" color="yellow">Select Type:</font>
         <select name="type" id = "type">
             <option value="a">-Select an Object-</option>
@@ -333,6 +330,7 @@
             <option value="Location">Location</option>
 	    <option value="ScriptLine">Script Line</option>
         </select>
+	<div>
         <div id="Character" class="inv">
 		<font size="2" color="yellow">ID: <input type="number" name="id" id="characterid" style="color:black"><br>
 		<font size="2" color="yellow">Name: <input type="text" name="name" id="charactername" style="color:black"><br>
@@ -373,11 +371,11 @@
 		<font size="2" color="yellow">Spoken Word: <input type="text" name="spokenword" id="scriptspokenword" style="color:black"><br>
 		<font size="2" color="yellow">Word Count: <input type="number" name="wordcount" id="scriptwordcount" style="color:black"><br>		
 	</div>
+	</div>
         <div id = 'buttonDiv'>&nbsp;
             <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Insert" onclick="ajaxFunction();"></input> <!--Button-->
         </div>
 	<div id = 'ajaxDiv'>Result will load here</div>
-	</form>
 </div>
 </body>
 </html>
