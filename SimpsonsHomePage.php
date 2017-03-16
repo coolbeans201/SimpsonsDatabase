@@ -42,7 +42,6 @@
     body {
         background-color: black;
     }
-
     /* simpsons style font */
     @font-face {
         font-family: 'simpsonsFont';
@@ -207,6 +206,7 @@
                     <li><a href="SimpsonsExplore.php">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
                     <li><a href="SimpsonsInspiration.php">Inspiration</a></li> 
+		    <li><a href="SimpsonsAdmin.php">Admin</a></li> 
                 </ul>
             </div>
         </div>
@@ -235,7 +235,5 @@
 	</table>
     </div>
 </div>
-
-
 </body>
 </html>
