@@ -42,7 +42,6 @@
     body {
         background-color: black;
     }
-
     /* simpsons style font */
     @font-face {
         font-family: 'simpsonsFont';
@@ -80,7 +79,6 @@
                      -4px 4px 1px black,
                      -4px -2px 1px black;
     }*/
-
     .datagrid table { border-collapse: collapse;} 
 	    .datagrid {
 					font: Arial, Helvetica, sans-serif; 
@@ -100,7 +98,6 @@
 		.datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
 		.datagrid table tbody td:first-child { border-left: none; }
 		.datagrid table tbody tr:last-child td { border-bottom: none; }
-
     .navbar {
         margin-bottom: 10px;
         border-bottom: 7.5px solid #4BB2F5;
@@ -234,7 +231,6 @@
 	ajaxRequest.open("GET", "getSimpsonsAdditionalInfo.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
-
     function getData(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
@@ -277,7 +273,6 @@
 	ajaxRequest.open("GET", "getExploreResult.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
-
     </script>
 
 </head>
@@ -309,7 +304,8 @@
                     <li><a href="SimpsonsRetrieval.php">Retrieval</a></li>
                     <li class="active"><a href="#">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
-                    <li><a href="SimpsonsInspiration.php">Inspiration</a></li> 
+                    <li><a href="SimpsonsInspiration.php">Inspiration</a></li>
+		    <li><a href="SimpsonsAdmin.php">Admin</a></li> 
                 </ul>
             </div>
         </div>
