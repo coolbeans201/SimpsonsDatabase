@@ -19,7 +19,7 @@ For episodes, the user will see the name of the episode, the air date, the seaso
 
 In the middle of the screen, you'll see an embedded video player which contains that *Simpsons* episode, which is provided by FXX. Under the video, you'll be able to see the whole dialogue of the episode.
 
-You can choose which character, location, or episode you want through two comboboxes. Once your selection is made and you get the information, you can move to the next or previous sorted record in the table through the "Next" and "Previous" buttons. When you're at the first record, the "Previous" button will disappear and when you're at the last record, the "Next" button will disappear.
+You can choose which character, location, or episode you want through two comboboxes.
 
 The "Explore" section will allow you to perform a lot more statistical queries on the dataset. Here, we can answer such questions as:
 
@@ -40,3 +40,5 @@ The "Explore" section will allow you to perform a lot more statistical queries o
 8. What is each character's total dialogue?
 
 More can be added based on ideas that pop into our heads throughout the project.
+
+We also have the ability to add characters, episodes, locations, and script lines through the Admin page.
