@@ -10,7 +10,7 @@
 		$id = $_GET['id'].intval();
 		$name = $_GET['name'];
 		$gender = $_GET['gender'];
-		$query = "INSERT INTO CHARACTER VALUES (. $id ., ". $name .", ". $gender .");";
+		$query = "INSERT INTO CHARACTER VALUES (". $id .", '". $name ."', '". $gender ."');";
 		echo $query;
 	}
 	if ($type == 'Episode')
@@ -25,14 +25,14 @@
 		$rating = $_GET['rating'].floatval();
 		$stillurl = $_GET['stillurl'];
 		$videourl = $_GET['videourl'];
-		$query = "INSERT INTO EPISODE VALUES (. $id ., ". $title .", ". $date .", . $season ., . $numberinseason ., . $numberinseries ., . $viewers ., . $rating ., ". $stillurl . ", ". $videourl . ");";
+		$query = "INSERT INTO EPISODE VALUES (". $id .", '". $title ."', '". $date ."', ". $season .", ". $numberinseason .", ". $numberinseries .", ". $viewers .", ". $rating .", '". $stillurl . "', '". $videourl . "');";
 
 	}
 	if ($type == 'Location')
 	{
 		$id = $_GET['id'].intval();
 		$name = $_GET['name'];
-		$query = "INSERT INTO LOCATION VALUES (. $id ., ". $name .");";
+		$query = "INSERT INTO LOCATION VALUES (". $id .", '". $name ."');";
 
 	}
 	else
@@ -49,7 +49,7 @@
 		$location = $_GET['location'];
 		$spokenword = $_GET['spokenword'];
 		$wordcount = $_GET['wordcount'].intval();
-		$query = "INSERT INTO SCRIPT_LINE VALUES (. $id ., . $episodeid ., . $linenumber ., ". $rawtext .", . $timestamp ., ". $speakingline .", . $characterid ., . $locationid ., ". $character .", ". $location .", ". $spokenword .", . $wordcount .);";
+		$query = "INSERT INTO SCRIPT_LINE VALUES (". $id .", ". $episodeid .", ". $linenumber .", '". $rawtext ."', ". $timestamp .", '". $speakingline ."', ". $characterid .", ". $locationid .", '". $character ."', '". $location ."', '". $spokenword ."', ". $wordcount .");";
 	}
 	$statement = oci_parse($connection, $query);
 	oci_execute($statement);
