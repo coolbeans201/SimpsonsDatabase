@@ -196,7 +196,6 @@
             $(this).addClass('active');
         });
     });
-    onload=function() {Type(0);};
     function ajaxFunction(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
