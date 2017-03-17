@@ -255,15 +255,15 @@
 	{
 		var queryString = "?type=" + type + "&id=" + document.getElementById('characterid').value + "&name=" + document.getElementById('charactername').value + "&gender=" + document.getElementById('gender').value;
 	}
-	if(type == "Episode")
+	else if(type == "Episode")
 	{
 		var queryString = "?type=" + type + "&id=" + document.getElementById('episodeid').value + "&title=" + document.getElementById('episodetitle').value + "&date=" + document.getElementById('episodedate').value + "&season=" + document.getElementById('episodeseason').value + "&numberinseason=" + document.getElementById('episodenumberinseason').value + "&numberinseries=" + document.getElementById('episodenumberinseries').value + "&viewers=" + document.getElementById('episodeviewers').value + "&rating=" + document.getElementById('episoderating').value + "&stillurl=" + document.getElementById('episodestillurl').value + "&videourl=" + document.getElementById('episodevideourl').value;
 	}
-	if(type == "Location")
+	else if(type == "Location")
 	{
 		var queryString = "?type=" + type + "&id=" + document.getElementById('locationid').value + "&name=" + document.getElementById('locationname').value;
 	}
-	if(type == "ScriptLine")
+	else if(type == "ScriptLine")
 	{
 		var queryString = "?type=" + type + "&id=" + document.getElementById('scriptid').value + "&episodeid=" + document.getElementById('scriptepisodeid').value + "&linenumber=" + document.getElementById('scriptlinenumber').value + "&rawtext=" + document.getElementById('scriptrawtext').value + "&timestamp=" + document.getElementById('scripttimestamp').value + "&speakingline=?" + document.getElementById('scriptspeakingline').value + "&characterid=" + document.getElementById('scriptcharacterid').value + "&locationid=" + document.getElementById('scriptlocationid').value + "&character=" + document.getElementById('scriptcharacter').value + "&location=" + document.getElementById('scriptlocation').value + "&spokenword=" + document.getElementById('scriptspokenword').value + "&wordcount=" + document.getElementById('scriptwordcount').value;
 	}	 	 
