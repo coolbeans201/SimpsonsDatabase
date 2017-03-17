@@ -21,14 +21,14 @@
 		$query = "SELECT DISTINCT ID, TITLE FROM EPISODE WHERE TITLE IS NOT NULL ORDER BY TITLE";
 	}
 	
-	else
+	else if($type == 'Location')
 	{
 		$query = "SELECT DISTINCT NAME, ID FROM LOCATION WHERE NAME IS NOT NULL ORDER BY NAME";
 	}
 	
 	$statement = oci_parse($connection, $query);
 	oci_execute($statement);
-	echo '<font size = "4" color="yellow">Select name:</font>';
+	echo '<font size = "4" color="yellow">Select name/title:</font>';
 	echo '<select name="personbox1" id = "name1">';
 	echo '<option value = "-1">Select:</option>';
 	while($row=oci_fetch_assoc($statement)) {
@@ -38,7 +38,7 @@
 		else if($type == 'Episode'){
 			echo '<option value="'.$row['ID'].'">' . $row['TITLE'] . '</option>';
 		}
-		else{
+		else if($type == 'Location'){
 			echo '<option value="'.$row['ID'].'">' . $row['NAME'] . '</option>';
 		}
 	}
