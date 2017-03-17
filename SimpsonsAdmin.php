@@ -9,27 +9,16 @@
 	<meta name="copyright" content="Copyright &copy 2017, All Rights Reserved">
     <style>
     <style style="text/css">
-    .datagrid table { border-collapse: collapse;} 
-	    .datagrid {
-					font: Arial, Helvetica, sans-serif; 
-					background: #fff; 
-                    overflow: hidden; 
-					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
-					overflow: scroll;
-                    display: none;
-					}
-		.datagrid table td, 
-		.datagrid table th { padding: 3px 10px; }
-		.datagrid table td { font-size: 20px; 
-                             color: black;}
-		.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #36752D; } 
-		.datagrid table thead th:first-child { border: none; }
-		.datagrid table tbody td { color: black; border-left: 1px solid #4BB2F5;font-size: 20px;font-weight: normal; }
-		.datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
-		.datagrid table tbody td:first-child { border-left: none; }
-		.datagrid table tbody tr:last-child td { border-bottom: none; }
+    .datagrid table { border-collapse: collapse; text-align: left; width: 100%; } 
+    .datagrid {		
+	font: Arial, Helvetica, sans-serif; 
+	background: #fff; overflow: hidden; border: 10px solid #36752D; 
+	-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
+     }
+     .datagrid table td, .datagrid table th { padding: 3px 10px; }
+     .datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #36752D; } .datagrid table thead th:first-child { border: none; }.datagrid table tbody td { color: #275420; border-left: 1px solid #C6FFC2;font-size: 20px;font-weight: normal; }.datagrid table tbody .alt td { background: #DFFFDE; color: #275420; }.datagrid table tbody td:first-child { border-left: none; }.datagrid table tbody tr:last-child td { border-bottom: none; }.datagrid table tfoot td div { border-top: 1px solid #36752D;background: #DFFFDE;} .datagrid table tfoot td { padding: 0; font-size: 18px } .datagrid table tfoot td div{ padding: 2px; }.datagrid table tfoot td ul { margin: 0; padding:0; list-style: none; text-align: right; }.datagrid table tfoot  li { display: inline; }.datagrid table tfoot li a { text-decoration: none; display: inline-block;  padding: 2px 8px; margin: 1px;color: #FFFFFF;border: 10px solid #36752D;-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; }.datagrid table tfoot ul.active, .datagrid table tfoot ul a:hover { text-decoration: none;border-color: #275420; color: #FFFFFF; background: none; background-color:#36752D;}div.dhtmlx_window_active, div.dhx_modal_cover_dv { position: fixed !important; }
     html {
-        overflow-y: scroll
+    	overflow-y: scroll
     }
     
     .banner {
@@ -262,23 +251,21 @@
 	// Now get the value from user and pass it to
 	// server script.
 	var type = document.getElementById('type').value;
-	var queryString = "?type=" + type;
 	if(type == "Character")
 	{
-		queryString = queryString + "&id=" + document.getElementById('characterid').value + "&name=" + document.getElementById('charactername').value + "&gender=" + document.getElementById('gender').value;
+		var queryString = "?type=" + type + "&id=" + document.getElementById('characterid').value + "&name=" + document.getElementById('charactername').value + "&gender=" + document.getElementById('gender').value;
 	}
-	else if(type == "Episode")
+	if(type == "Episode")
 	{
-		queryString = queryString + "&id=" + document.getElementById('episodeid').value + "&title=" + document.getElementById('episodetitle').value + "&date=" + document.getElementById('episodedate').value + "&season=" + document.getElementById('episodeseason').value + "&numberinseason=" + document.getElementById('episodenumberinseason').value + "&numberinseries=" + document.getElementById('episodenumberinseries').value + "&viewers=" + document.getElementById('episodeviewers').value + "&rating=" + document.getElementById('episoderating').value + "&stillurl=" + document.getElementById('episodestillurl').value + "&videourl=" + document.getElementById('episodevideourl').value;
-
+		var queryString = "?type=" + type + "&id=" + document.getElementById('episodeid').value + "&title=" + document.getElementById('episodetitle').value + "&date=" + document.getElementById('episodedate').value + "&season=" + document.getElementById('episodeseason').value + "&numberinseason=" + document.getElementById('episodenumberinseason').value + "&numberinseries=" + document.getElementById('episodenumberinseries').value + "&viewers=" + document.getElementById('episodeviewers').value + "&rating=" + document.getElementById('episoderating').value + "&stillurl=" + document.getElementById('episodestillurl').value + "&videourl=" + document.getElementById('episodevideourl').value;
 	}
-	else if(type == "Location")
+	if(type == "Location")
 	{
-		queryString = queryString + "&id=" + document.getElementById('locationid').value + "&name=" + document.getElementById('locationname').value;
+		var queryString = "?type=" + type + "&id=" + document.getElementById('locationid').value + "&name=" + document.getElementById('locationname').value;
 	}
-	else
+	if(type == "ScriptLine")
 	{
-		queryString = queryString + "&id=" + document.getElementById('scriptid').value + "&episodeid=" + document.getElementById('scriptepisodeid').value + "&linenumber=" + document.getElementById('scriptlinenumber').value + "&rawtext=" + document.getElementById('scriptrawtext').value + "&timestamp=" + document.getElementById('scripttimestamp').value + "&speakingline=?" + document.getElementById('scriptspeakingline').value + "&characterid=" + document.getElementById('scriptcharacterid').value + "&locationid=" + document.getElementById('scriptlocationid').value + "&character=" + document.getElementById('scriptcharacter').value + "&location=" + document.getElementById('scriptlocation').value + "&spokenword=" + document.getElementById('scriptspokenword').value + "&wordcount=" + document.getElementById('scriptwordcount').value;
+		var queryString = "?type=" + type + "&id=" + document.getElementById('scriptid').value + "&episodeid=" + document.getElementById('scriptepisodeid').value + "&linenumber=" + document.getElementById('scriptlinenumber').value + "&rawtext=" + document.getElementById('scriptrawtext').value + "&timestamp=" + document.getElementById('scripttimestamp').value + "&speakingline=?" + document.getElementById('scriptspeakingline').value + "&characterid=" + document.getElementById('scriptcharacterid').value + "&locationid=" + document.getElementById('scriptlocationid').value + "&character=" + document.getElementById('scriptcharacter').value + "&location=" + document.getElementById('scriptlocation').value + "&spokenword=" + document.getElementById('scriptspokenword').value + "&wordcount=" + document.getElementById('scriptwordcount').value;
 	}	 	 
 	ajaxRequest.open("GET", "insertSimpsonsTuples.php" + queryString, true);
 	ajaxRequest.send(null); 	
