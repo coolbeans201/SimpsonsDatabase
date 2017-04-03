@@ -237,8 +237,8 @@
 			<td> <img/> </td>
 		</tr>	
 		<tr> 
-			<td> <p><b><u>Timmy Chandy</u></b><br/></p> </td>
-			<td> <img/></td>
+			<td> <p><b><u>Timmy Chandy</u></b><br/>Timmy is a former Computer Engineering graduate from UF in Fall 2015. Timmy is currently working as a software developer at Statefarm Insurance in Dallas, TX. In his free time he likes to read and watch movies. His favorite character is Homer on the Simpsons</p> </td>
+			<td> <img src="Simpson Timmy.JPG" alt = "Timmy Chandy" height = "100" /> </td>
 		<tr> 
 			<td> <p><b><u>Will Posey</u></b><br/>Will is a former Electrical Engineering and Computer Engineering graduate from the University of West Florida in Spring 2015. He is currently working as an Air Force Computer Engineer in the Palace Acquire program. Will enjoys playing basketball and skateboarding. His favorite character is Ralph Wiggum on the Simpsons</p> </td>
 			<td> <img src="Simpson Will.JPG" alt = "Will Posey" height = "100" /> </td>
