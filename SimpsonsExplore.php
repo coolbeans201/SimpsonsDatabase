@@ -188,6 +188,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     // this sets the class to "active" of the currently active link in the navbar
+    /*****************************************************************************************************************************/
     $(function() {
         $('.nav li').on('click', function() {
             $('.nav li').removeClass('active');
@@ -195,7 +196,8 @@
         });
     });
 
-    function ajaxFunction(){
+    /*****************************************************************************************************************************/
+    function typeFunction(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
 	try{
@@ -222,17 +224,66 @@
 	if(ajaxRequest.readyState == 4){
 		var ajaxDisplay = document.getElementById('ajaxDiv');
 		ajaxDisplay.innerHTML = ajaxRequest.responseText;
+		var ajaxDisplay2 = document.getElementById('ajaxDiv2');
+		ajaxDisplay2.innerHTML = "Additional info will be loaded here if necessary";
 	}
-	}
+    }
+
 	// Now get the value from user and pass it to
 	// server script.
 	var query = document.getElementById('query').value;
 		 	 
 	var queryString = "?query=" + query;
-	ajaxRequest.open("GET", "getSimpsonsAdditionalInfo.php" + queryString, true);
+	ajaxRequest.open("GET", "getExploreType.php" + queryString, true);
+	ajaxRequest.send(null); 
+    }
+
+    /*****************************************************************************************************************************/
+    function typeFunction2(){
+	var ajaxRequest;  // The variable that makes Ajax possible!
+			
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	}catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		}catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	// Create a function that will receive data 
+	// sent from the server and will update
+	// div section in the same page.
+	ajaxRequest.onreadystatechange = function(){
+	if(ajaxRequest.readyState == 4){
+		var ajaxDisplay2 = document.getElementById('ajaxDiv2');
+		ajaxDisplay2.innerHTML = ajaxRequest.responseText;
+	}
+	}
+
+	// Now get the value from user and pass it to
+	// server script.
+	var query = document.getElementById('query').value;
+    
+    if(document.getElementById('query2') && document.getElementById('query2').value)
+        var query2 = document.getElementById('query2').value;
+    else
+        var query2 = "";
+		 	 
+	var queryString = "?query=" + query + "&query2=" + query2;
+	ajaxRequest.open("GET", "getExploreType2.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
     
+    /*****************************************************************************************************************************/
     function getData(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
@@ -269,12 +320,18 @@
 	// Now get the value from user and pass it to
 	// server script.
     var queryType = document.getElementById('query').value;
-    if(document.getElementById('name1') && document.getElementById('name1').value)
-        var dialogueName = document.getElementById('name1').value;
+
+    if(document.getElementById('query2') && document.getElementById('query2').value)
+        var query2 = document.getElementById('query2').value;
     else
-        var dialogueName = "";
+        var query2 = "";
+
+    if(document.getElementById('query3') && document.getElementById('query3').value)
+        var query3 = document.getElementById('query3').value;
+    else
+        var query3 = "";
 		 	 
-	var queryString = "?queryType=" + queryType + "&dialogueName=" + dialogueName;
+	var queryString = "?queryType=" + queryType + "&query2=" + query2 + "&query3=" + query3;
 	ajaxRequest.open("GET", "getExploreResult.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
@@ -321,8 +378,18 @@
         <form name="myform" method="post">
             <div>
                 <font size = "4" color="yellow">Select query:</font>
-                <select name="query" id = "query" onchange="ajaxFunction();">
+                <select name="query" id = "query" onchange="typeFunction();">
                     <option value="a">-Select a Query-</option>
+                    <option value="TotalViewing">Total Viewing by Season</option>
+                    <option value="AverageRating">Average Rating by Season</option>
+                    <option value="MostWatchedEpisodes">Most Watched Episodes</option>
+                    <option value="HighestRatedEpisodes">Highest Rated Episodes</option>
+                    <option value="TopCharacter">Top Character</option>
+                    <option value="TopLocation">Top Location</option>
+                    <option value="MostSpokenLine">Most Spoken Line</option>
+                    <option value="WordsSpoken">Most Words Spoken</option>
+
+                    <!--
                     <option value="TotalViewing">Total Viewing by Season</option>
                     <option value="AverageRating">Average Rating by Season</option>
                     <option value="TopCharacterAll">Top Characters (All)</option>
@@ -348,9 +415,11 @@
                     <option value="WordsSpokenSeasonAll">Most Words Spoken by Season (All)</option>
                     <option value="WordsSpokenSeasonSimpsons">Most Words Spoken by Season (Simpsons)</option>
                     <option value="WordsSpokenSeasonNonSimpsons">Most Words Spoken by Season (Non-Simpsons)</option>
+                    -->
                 </select>
             </div>
             <div id='ajaxDiv'>Additional info will be loaded here if necessary</div>
+            <div id='ajaxDiv2'>Additional info will be loaded here if necessary</div>
             <div id = 'buttonDiv'>&nbsp;
                 <input type= "button" class="btn" id="computeBtn" style = "color:white; background-color: #4BB2F5;" value="Compute" onclick="getData();"></input> <!--Button-->
             </div>
