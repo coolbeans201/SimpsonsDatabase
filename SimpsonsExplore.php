@@ -182,6 +182,7 @@
 	text-align:center;
 	font-size:18px;
     }
+
     </style>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -193,6 +194,7 @@
             $(this).addClass('active');
         });
     });
+
     function ajaxFunction(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
@@ -230,6 +232,7 @@
 	ajaxRequest.open("GET", "getSimpsonsAdditionalInfo.php" + queryString, true);
 	ajaxRequest.send(null); 
     }
+    
     function getData(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 			
@@ -255,11 +258,14 @@
 	// div section in the same page.
 	ajaxRequest.onreadystatechange = function(){
 	if(ajaxRequest.readyState == 4){
+        $("body").css("cursor", "default");
         document.getElementById('datagrid').style.display = "block";
 		var ajaxDisplay = document.getElementById('resultDisplay');
 		ajaxDisplay.innerHTML = ajaxRequest.responseText;
 	}
 	}
+
+    $("body").css("cursor", "progress");
 	// Now get the value from user and pass it to
 	// server script.
     var queryType = document.getElementById('query').value;
@@ -319,19 +325,34 @@
                     <option value="a">-Select a Query-</option>
                     <option value="TotalViewing">Total Viewing by Season</option>
                     <option value="AverageRating">Average Rating by Season</option>
-                    <option value="MostSpokenLine">Most Spoken Line by Character</option>
                     <option value="TopCharacterAll">Top Characters (All)</option>
                     <option value="TopCharacterSimpsons">Top Characters (Simpsons)</option>
                     <option value="TopCharactersNonSimpsons">Top Characters (Non-Simpsons)</option>
-                    <option value="TopLocations">Top Locations</option>
                     <option value="MostWatchedEpisodes">Most Watched Episodes</option>
                     <option value="HighestRatedEpisodes">Highest Rated Episodes</option>
-                    <option value="Dialogue">Total Dialogue by Character</option>
+                    <option value="TopLocations">Top Locations</option>
+                    <option value="TopLocationsCharacter">Top Locations by Character</option>
+                    <option value="TopLocationsEpisode">Top Location by Episode</option>
+                    <option value="TopLocationsSeason">Top Locations by Season</option>
+                    <option value="MostSpokenLine">Most Spoken Line</option>
+                    <option value="MostSpokenLineCharacter">Most Spoken Line by Character</option>
+                    <option value="WordsSpokenAll">Most Words Spoken (All)</option>
+                    <option value="WordsSpokenSimpsons">Most Words Spoken (Simpsons)</option>
+                    <option value="WordsSpokenNonSimpsons">Most Words Spoken (Non-Simpsons)</option>
+                    <option value="WordsSpokenByEpisodeAll">Most Words Spoken by Episode (All)</option>
+                    <option value="WordsSpokenByEpisodeSimpsons">Most Words Spoken by Episode (Simpsons)</option>
+                    <option value="WordsSpokenByEpisodeNonSimpsons">Most Words Spoken by Episode (Non-Simpsons)</option>
+                    <option value="WordsSpokenPerEpisodeAll">Most Words Spoken per Episode (All)</option>
+                    <option value="WordsSpokenPerEpisodeSimpsons">Most Words Spoken per Episode (Simpsons)</option>
+                    <option value="WordsSpokenPerEpisodeNonSimpsons">Most Words Spoken per Episode (Non-Simpsons)</option>
+                    <option value="WordsSpokenSeasonAll">Most Words Spoken by Season (All)</option>
+                    <option value="WordsSpokenSeasonSimpsons">Most Words Spoken by Season (Simpsons)</option>
+                    <option value="WordsSpokenSeasonNonSimpsons">Most Words Spoken by Season (Non-Simpsons)</option>
                 </select>
             </div>
             <div id='ajaxDiv'>Additional info will be loaded here if necessary</div>
             <div id = 'buttonDiv'>&nbsp;
-                <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Compute" onclick="getData();"></input> <!--Button-->
+                <input type= "button" class="btn" id="computeBtn" style = "color:white; background-color: #4BB2F5;" value="Compute" onclick="getData();"></input> <!--Button-->
             </div>
         </form>
         <nav class="datagrid" id="datagrid">
