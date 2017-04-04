@@ -29,7 +29,7 @@
 	$statement = oci_parse($connection, $query);
 	oci_execute($statement);
 	echo '<font size = "4" color="yellow">Select name/title:</font>';
-	echo '<select name="personbox1" id = "name1">';
+	echo '<select name="personbox1" id = "name1" onchange="selectionChange();">';
 	echo '<option value = "-1">Select:</option>';
 	while($row=oci_fetch_assoc($statement)) {
 		if ($type == 'Character'){

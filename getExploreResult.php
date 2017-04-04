@@ -93,11 +93,83 @@
 		}
 		else if($query2 == 'season')
 		{
-
+			if($query3 == 'all')
+			{
+				$query = "select s.season as season, name, episode_count
+						  from(		select season, c.name as name, count(distinct scr.episode_id) as episode_count
+									from script_line scr
+									inner join episode ep on ep.id = scr.episode_id
+									inner join character c on c.id = scr.character_id
+									group by season, name) s
+						  inner join
+						      (		select season, max(episode_count) as max_count
+							  		from(	select season, c.name as name, count(distinct scr.episode_id) as episode_count
+											from script_line scr
+											inner join episode ep on ep.id = scr.episode_id
+											inner join character c on c.id = scr.character_id
+											group by season, name)
+									group by season) m
+						  on s.season = m.season and s.episode_count = m.max_count
+						  order by season asc";
+			}
+			else
+			{
+				$query = "select s.season, name, episode_count
+						  from(		select season, c.name as name, count(distinct scr.episode_id) as episode_count
+									from script_line scr
+									inner join episode ep on ep.id = scr.episode_id
+									inner join character c on c.id = scr.character_id
+									where name " .$charType ."like '%Simpson%'
+									group by season, name) s
+						  inner join
+						      (		select season, max(episode_count) as max_count
+							  		from(	select season, c.name as name, count(distinct scr.episode_id) as episode_count
+											from script_line scr
+											inner join episode ep on ep.id = scr.episode_id
+											inner join character c on c.id = scr.character_id
+											where name " .$charType ."like '%Simpson%'
+											group by season, name)
+									group by season) m
+						  on s.season = m.season and s.episode_count = m.max_count
+						  order by season asc";		
+			}
 		}
 		else if($query2 == 'episode')
 		{
-
+			if($query3 == 'all')
+			{
+				$query = "select season, number_in_season, title, character, max_times, still_url, video_url
+						  from(	select ep.id, character, count(character) as times
+								from script_line scr inner join episode ep on scr.episode_id = ep.id
+								group by ep.id, character) char_ep
+						  inner join 
+							  (	select id, max(times) as max_times
+								from(	select ep.id, character, count(character) as times
+										from script_line scr inner join episode ep on scr.episode_id = ep.id
+										group by ep.id, character)
+								group by id) max_ep
+						  on char_ep.id = max_ep.id and char_ep.times = max_ep.max_times
+						  inner join episode ep on max_ep.id = ep.id 
+						  order by season asc, number_in_season asc";
+			}
+			else
+			{
+				$query = "select season, number_in_season, title, character, max_times, still_url, video_url
+						  from(	select ep.id, character, count(character) as times
+								from script_line scr inner join episode ep on scr.episode_id = ep.id
+								where character " .$charType ."like '%Simpson%'
+								group by ep.id, character) char_ep
+						  inner join 
+							  (	select id, max(times) as max_times
+								from(	select ep.id, character, count(character) as times
+										from script_line scr inner join episode ep on scr.episode_id = ep.id
+										where character " .$charType ."like '%Simpson%'
+										group by ep.id, character)
+								group by id) max_ep
+						  on char_ep.id = max_ep.id and char_ep.times = max_ep.max_times
+						  inner join episode ep on max_ep.id = ep.id 
+						  order by season asc, number_in_season asc";		
+			}
 		}
 	}
     /*****************************************************************************************************************************/
@@ -132,11 +204,13 @@
 		}
 		else if($query2 == 'season')
 		{
-			$query = "select location, count(location) as times
-					  from script_line scr inner join episode ep on scr.episode_id = ep.id
-					  where season = " . $query3 ."
-					  group by season, location
-					  order by times desc";
+			$query = "select rownum as rank, location, times
+					  from(	select location, count(location) as times
+					  		from script_line scr inner join episode ep on scr.episode_id = ep.id
+					  		where season = " . $query3 ."
+					  		group by season, location
+					  		order by times desc)
+					  order by rank asc";
 		}
 		else if($query2 == 'character')
 		{
@@ -174,11 +248,38 @@
 		}
 		else if($query2 == 'episode')
 		{
-			
+			$query = "select season, number_in_season, title, character, spoken_word as line, max_times, still_url, video_url
+					  from (	select episode_id, character_id as s_id, character, spoken_word, count(spoken_word) as times
+								from script_line
+								where speaking_line='true'
+								group by episode_id, character_id, character, spoken_word) s
+					  inner join
+							(	select episode_id, max(times) as max_times
+								from(	select episode_id, character_id as s_id, character, spoken_word, count(spoken_word) as times
+										from script_line
+										where speaking_line='true'
+										group by episode_id, character_id, character, spoken_word)
+								group by episode_id) m
+					  on s.times = m.max_times and s.episode_id = m.episode_id
+					  inner join episode ep on m.episode_id = ep.id 
+					  order by season asc, number_in_season asc";
 		}
 		else if($query2 == 'season')
 		{
-			
+			$query = "select s.season as season, character, spoken_word as line, times as count
+					  from (	select season, character_id as s_id, character, spoken_word, count(spoken_word) as times
+								from script_line scr inner join episode e on scr.episode_id = e.id
+								where speaking_line='true'
+								group by season, character_id, character, spoken_word) s
+					  inner join
+							(	select season, max(times) as max_times
+								from(	select season, character_id as s_id, character, spoken_word, count(spoken_word) as times
+										from script_line scr inner join episode e on scr.episode_id = e.id
+										where speaking_line='true'
+										group by season, character_id, character, spoken_word)
+								group by season) m
+					  on s.times = m.max_times and s.season = m.season
+					  order by season asc";
 		}
 		else if($query2 == 'character')
 		{
@@ -188,6 +289,7 @@
 							where speaking_line='true' and character_id=" .$query3 ."
 							group by character_id, character, spoken_word
 							order by times desc) 
+					  where rank < 1000
 					  order by rank asc";
 		}
 	}
@@ -761,7 +863,7 @@
 		if($query2 == 'overall')
 		{
 			echo "<table border='1'>\n";
-			echo '<tr><th>Rank</th><th>Character</th><th>Episode Count</th></tr>';
+			echo '<tr><th>Rank</th><th>Character</th><th>Episodes Featured</th></tr>';
 			while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
 				foreach ($row as $item) 
 				{
@@ -773,11 +875,33 @@
 		}
 		else if($query2 == 'episode')
 		{
-
+			echo "<table border='1'>\n";
+			echo '<tr><th>Season Number</th><th>Episode Number</th><th>Title</th><th>Character</th>
+									<th>Times Featured</th><th>Episode Still</th>
+									<th>URL</th></tr>';
+			while($row=oci_fetch_assoc($statement)) {
+				echo "<tr><td>" . $row['SEASON'] . 
+					"</td><td>" . $row['NUMBER_IN_SEASON'] . 
+				"</td><td>" . $row['TITLE'] . 
+				"</td><td>" . $row['CHARACTER'] . 
+				"</td><td>" . $row['MAX_TIMES'] . 
+				"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
+				"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
+			}
+			echo "</table><br>";
 		}
 		else if($query2 == 'season')
 		{
-			
+			echo "<table border='1'>\n";
+			echo '<tr><th>Season</th><th>Character</th><th>Episodes Featured</th></tr>';
+			while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+				foreach ($row as $item) 
+				{
+					echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+				}
+				echo "</tr>\n";
+			}
+			echo "</table><br>";
 		}
 	}
     /*****************************************************************************************************************************/
@@ -816,7 +940,7 @@
 		else if($query2 == 'season')
 		{
 			echo "<table border='1'>\n";
-			echo '<tr><th>Location</th><th>Times Featured</th></tr>';
+			echo '<tr><th>Rank</th><th>Location</th><th>Times Featured</th></tr>';
 			while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
 				foreach ($row as $item) 
 				{
@@ -858,11 +982,34 @@
 		}
 		else if($query2 == 'episode')
 		{
-			
+			echo "<table border='1'>\n";
+			echo '<tr><th>Season Number</th><th>Episode Number</th><th>Title</th><th>Character</th><th>Line</th>
+									<th>Times Spoken</th><th>Episode Still</th>
+									<th>URL</th></tr>';
+			while($row=oci_fetch_assoc($statement)) {
+				echo "<tr><td>" . $row['SEASON'] . 
+					"</td><td>" . $row['NUMBER_IN_SEASON'] . 
+				"</td><td>" . $row['TITLE'] . 
+				"</td><td>" . $row['CHARACTER'] . 
+				"</td><td>" . $row['LINE'] . 
+				"</td><td>" . $row['MAX_TIMES'] . 
+				"</td><td> <img src=" .$row['STILL_URL'] . " alt=" .$row['STILL_URL']. "height='200' width='200'>" . 
+				"</td><td><a href='" . $row['VIDEO_URL'] . "' " . "target='_blank'>Click here to watch the Episode</a></td></tr>";
+			}
+			echo "</table><br>";
 		}
 		else if($query2 == 'season')
 		{
-			
+			echo "<table border='1'>\n";
+			echo '<tr><th>Season</th><th>Character</th><th>Line</th><th>Times Spoken</th></tr>';
+			while ($row = oci_fetch_array($statement, OCI_ASSOC+OCI_RETURN_NULLS)) {
+				foreach ($row as $item) 
+				{
+					echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+				}
+				echo "</tr>\n";
+			}
+			echo "</table><br>";
 		}
 		else if($query2 == 'character')
 		{

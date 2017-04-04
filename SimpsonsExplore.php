@@ -10,7 +10,7 @@
     <style>
     <style style="text/css">
     html {
-        overflow-y: scroll
+        overflow-y: scroll;
     }
     
     .banner {
@@ -79,25 +79,28 @@
                      -4px 4px 1px black,
                      -4px -2px 1px black;
     }*/
-    .datagrid table { border-collapse: collapse;} 
-	    .datagrid {
-					font: Arial, Helvetica, sans-serif; 
-					background: #fff; 
-                    overflow: hidden; 
-					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
-					overflow: scroll;
-                    display: none;
-					}
-		.datagrid table td, 
-		.datagrid table th { padding: 3px 10px; }
-		.datagrid table td { font-size: 20px; 
-                             color: black;}
-		.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #36752D; } 
-		.datagrid table thead th:first-child { border: none; }
-		.datagrid table tbody td { color: black; border-left: 1px solid #4BB2F5;font-size: 20px;font-weight: normal; }
-		.datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
-		.datagrid table tbody td:first-child { border-left: none; }
-		.datagrid table tbody tr:last-child td { border-bottom: none; }
+    .datagrid table { 
+        border-collapse: collapse;
+        margin: 0 auto;
+        background: #fff; 
+    } 
+    .datagrid {
+                font: Arial, Helvetica, sans-serif; 
+                background: #000; 
+                -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
+                display: none;
+                text-align: center; 
+    }
+    .datagrid table td, 
+    .datagrid table th { padding: 3px 10px; }
+    .datagrid table td { font-size: 20px; 
+                            color: black;}
+    .datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #36752D; } 
+    .datagrid table thead th:first-child { border: none; }
+    .datagrid table tbody td { color: black; border-left: 1px solid #4BB2F5;font-size: 20px;font-weight: normal; }
+    .datagrid table tbody .alt td { background: #DFFFDE; color: #4BB2F5; }
+    .datagrid table tbody td:first-child { border-left: none; }
+    .datagrid table tbody tr:last-child td { border-bottom: none; }
     .navbar {
         margin-bottom: 10px;
         border-bottom: 7.5px solid #4BB2F5;
@@ -183,10 +186,18 @@
 	font-size:18px;
     }
 
+    .btn{
+        opacity: 0.5;
+        margin-top: 15px;
+    }
+
     </style>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
+
+    var btnEnabled = false;
+
     // this sets the class to "active" of the currently active link in the navbar
     /*****************************************************************************************************************************/
     $(function() {
@@ -197,144 +208,203 @@
     });
 
     /*****************************************************************************************************************************/
-    function typeFunction(){
-	var ajaxRequest;  // The variable that makes Ajax possible!
-			
-	try{
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	}catch (e){
-		// Internet Explorer Browsers
-		try{
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		}catch (e) {
-			try{
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			}catch (e){
-				// Something went wrong
-				alert("Your browser broke!");
-				return false;
-			}
-		}
-	}
-	// Create a function that will receive data 
-	// sent from the server and will update
-	// div section in the same page.
-	ajaxRequest.onreadystatechange = function(){
-	if(ajaxRequest.readyState == 4){
-		var ajaxDisplay = document.getElementById('ajaxDiv');
-		ajaxDisplay.innerHTML = ajaxRequest.responseText;
-		var ajaxDisplay2 = document.getElementById('ajaxDiv2');
-		ajaxDisplay2.innerHTML = "Additional info will be loaded here if necessary";
-	}
-    }
+    function typeFunction()
+    {
+        var ajaxRequest;  // The variable that makes Ajax possible!
+                
+        try{
+            // Opera 8.0+, Firefox, Safari
+            ajaxRequest = new XMLHttpRequest();
+        }catch (e){
+            // Internet Explorer Browsers
+            try{
+                ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }catch (e) {
+                try{
+                    ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }catch (e){
+                    // Something went wrong
+                    alert("Your browser broke!");
+                    return false;
+                }
+            }
+        }
+        // Create a function that will receive data 
+        // sent from the server and will update
+        // div section in the same page.
+        ajaxRequest.onreadystatechange = function(){
+            if(ajaxRequest.readyState == 4)
+            {
+                var ajaxDisplay = document.getElementById('ajaxDiv');
+                ajaxDisplay.innerHTML = ajaxRequest.responseText;
 
-	// Now get the value from user and pass it to
-	// server script.
-	var query = document.getElementById('query').value;
-		 	 
-	var queryString = "?query=" + query;
-	ajaxRequest.open("GET", "getExploreType.php" + queryString, true);
-	ajaxRequest.send(null); 
+                var query = document.getElementById('query').value;
+
+                if(query == 'TotalViewing' || query == 'AverageRating' || query == 'MostWatchedEpisodes' || query == 'HighestRatedEpisodes')
+                    enableBtn();
+                else
+                {
+                    disableBtn();
+                    var ajaxDisplay2 = document.getElementById('ajaxDiv2');
+                    ajaxDisplay2.innerHTML = "Additional info will be loaded here if necessary";
+                }
+            }
+        }
+
+        disableBtn();
+        var ajaxDisplay = document.getElementById('ajaxDiv');
+        ajaxDisplay.innerHTML = "Additional info will be loaded here if necessary";
+        var ajaxDisplay2 = document.getElementById('ajaxDiv2');
+        ajaxDisplay2.innerHTML = "";
+        document.getElementById('datagrid').style.display = "none";
+
+        // Now get the value from user and pass it to
+        // server script.
+        var query = document.getElementById('query').value;
+                
+        var queryString = "?query=" + query;
+        ajaxRequest.open("GET", "getExploreType.php" + queryString, true);
+        ajaxRequest.send(null); 
     }
 
     /*****************************************************************************************************************************/
-    function typeFunction2(){
-	var ajaxRequest;  // The variable that makes Ajax possible!
-			
-	try{
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	}catch (e){
-		// Internet Explorer Browsers
-		try{
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		}catch (e) {
-			try{
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			}catch (e){
-				// Something went wrong
-				alert("Your browser broke!");
-				return false;
-			}
-		}
-	}
-	// Create a function that will receive data 
-	// sent from the server and will update
-	// div section in the same page.
-	ajaxRequest.onreadystatechange = function(){
-	if(ajaxRequest.readyState == 4){
-		var ajaxDisplay2 = document.getElementById('ajaxDiv2');
-		ajaxDisplay2.innerHTML = ajaxRequest.responseText;
-	}
-	}
+    function typeFunction2()
+    {
+        var ajaxRequest;  // The variable that makes Ajax possible!
+                
+        try{
+            // Opera 8.0+, Firefox, Safari
+            ajaxRequest = new XMLHttpRequest();
+        }catch (e){
+            // Internet Explorer Browsers
+            try{
+                ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }catch (e) {
+                try{
+                    ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }catch (e){
+                    // Something went wrong
+                    alert("Your browser broke!");
+                    return false;
+                }
+            }
+        }
+        // Create a function that will receive data 
+        // sent from the server and will update
+        // div section in the same page.
+        ajaxRequest.onreadystatechange = function(){
+            if(ajaxRequest.readyState == 4)
+            {
+                var ajaxDisplay2 = document.getElementById('ajaxDiv2');
+                ajaxDisplay2.innerHTML = ajaxRequest.responseText;
+                var query = document.getElementById('query').value;
+        
+                if(document.getElementById('query2') && document.getElementById('query2').value)
+                    var query2 = document.getElementById('query2').value;
+                else
+                    var query2 = "";
 
-	// Now get the value from user and pass it to
-	// server script.
-	var query = document.getElementById('query').value;
-    
-    if(document.getElementById('query2') && document.getElementById('query2').value)
-        var query2 = document.getElementById('query2').value;
-    else
-        var query2 = "";
-		 	 
-	var queryString = "?query=" + query + "&query2=" + query2;
-	ajaxRequest.open("GET", "getExploreType2.php" + queryString, true);
-	ajaxRequest.send(null); 
+                if(query == 'TopCharacter' || query == 'WordsSpoken' || (query == 'TopLocation' && query2 == 'season') || query2 == 'character')
+                    disableBtn();
+                else
+                    enableBtn();
+            }
+        }
+
+        disableBtn();
+        var ajaxDisplay2 = document.getElementById('ajaxDiv2');
+        ajaxDisplay2.innerHTML = "Additional info will be loaded here if necessary";
+        document.getElementById('datagrid').style.display = "none";
+
+        // Now get the value from user and pass it to
+        // server script.
+        var query = document.getElementById('query').value;
+        
+        if(document.getElementById('query2') && document.getElementById('query2').value)
+            var query2 = document.getElementById('query2').value;
+        else
+            var query2 = "";
+
+        var queryString = "?query=" + query + "&query2=" + query2;
+        ajaxRequest.open("GET", "getExploreType2.php" + queryString, true);
+        ajaxRequest.send(null); 
     }
     
     /*****************************************************************************************************************************/
-    function getData(){
-	var ajaxRequest;  // The variable that makes Ajax possible!
-			
-	try{
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	}catch (e){
-		// Internet Explorer Browsers
-		try{
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		}catch (e) {
-			try{
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			}catch (e){
-				// Something went wrong
-				alert("Your browser broke!");
-				return false;
-			}
-		}
-	}
-	// Create a function that will receive data 
-	// sent from the server and will update
-	// div section in the same page.
-	ajaxRequest.onreadystatechange = function(){
-	if(ajaxRequest.readyState == 4){
-        $("body").css("cursor", "default");
-        document.getElementById('datagrid').style.display = "block";
-		var ajaxDisplay = document.getElementById('resultDisplay');
-		ajaxDisplay.innerHTML = ajaxRequest.responseText;
-	}
-	}
+    function getData()
+    {
+        if(!btnEnabled)
+            return;    
+    
+        var ajaxRequest;  // The variable that makes Ajax possible!
+                
+        try{
+            // Opera 8.0+, Firefox, Safari
+            ajaxRequest = new XMLHttpRequest();
+        }catch (e){
+            // Internet Explorer Browsers
+            try{
+                ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }catch (e) {
+                try{
+                    ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }catch (e){
+                    // Something went wrong
+                    alert("Your browser broke!");
+                    return false;
+                }
+            }
+        }
+        // Create a function that will receive data 
+        // sent from the server and will update
+        // div section in the same page.
+        ajaxRequest.onreadystatechange = function(){
+            if(ajaxRequest.readyState == 4)
+            {
+                $("body").css("cursor", "default");
+                document.getElementById('datagrid').style.display = "block";
+                var ajaxDisplay = document.getElementById('resultDisplay');
+                ajaxDisplay.innerHTML = ajaxRequest.responseText;
+            }
+        }
 
-    $("body").css("cursor", "progress");
-	// Now get the value from user and pass it to
-	// server script.
-    var queryType = document.getElementById('query').value;
+        $("body").css("cursor", "progress");
+        // Now get the value from user and pass it to
+        // server script.
+        var queryType = document.getElementById('query').value;
 
-    if(document.getElementById('query2') && document.getElementById('query2').value)
-        var query2 = document.getElementById('query2').value;
-    else
-        var query2 = "";
+        if(document.getElementById('query2') && document.getElementById('query2').value)
+            var query2 = document.getElementById('query2').value;
+        else
+            var query2 = "";
 
-    if(document.getElementById('query3') && document.getElementById('query3').value)
-        var query3 = document.getElementById('query3').value;
-    else
-        var query3 = "";
-		 	 
-	var queryString = "?queryType=" + queryType + "&query2=" + query2 + "&query3=" + query3;
-	ajaxRequest.open("GET", "getExploreResult.php" + queryString, true);
-	ajaxRequest.send(null); 
+        if(document.getElementById('query3') && document.getElementById('query3').value)
+            var query3 = document.getElementById('query3').value;
+        else
+            var query3 = "";
+                
+        var queryString = "?queryType=" + queryType + "&query2=" + query2 + "&query3=" + query3;
+        ajaxRequest.open("GET", "getExploreResult.php" + queryString, true);
+        ajaxRequest.send(null); 
     }
+
+    function query3Change()
+    {
+        enableBtn();
+    }
+
+    function enableBtn()
+    {
+        btnEnabled = true;
+        document.getElementById('computeBtn').style.opacity = 1;
+    }
+
+    function disableBtn()
+    {
+        btnEnabled = false;
+        document.getElementById('computeBtn').style.opacity = 0.5;
+    }
+
     </script>
 
 </head>
@@ -367,7 +437,7 @@
                     <li class="active"><a href="#">Explore</a></li> 
                     <li><a href="SimpsonsTeam.php">Team</a></li> 
                     <li><a href="SimpsonsInspiration.php">Inspiration</a></li>
-		    <li><a href="SimpsonsAdmin.php">Admin</a></li> 
+		            <li><a href="SimpsonsAdmin.php">Admin</a></li> 
                 </ul>
             </div>
         </div>
@@ -377,7 +447,7 @@
     <div class = "query" style = "text-align: center">
         <form name="myform" method="post">
             <div>
-                <font size = "4" color="yellow">Select query:</font>
+                <font size = "4" color="yellow">Select Query:</font>
                 <select name="query" id = "query" onchange="typeFunction();">
                     <option value="a">-Select a Query-</option>
                     <option value="TotalViewing">Total Viewing by Season</option>
@@ -386,40 +456,12 @@
                     <option value="HighestRatedEpisodes">Highest Rated Episodes</option>
                     <option value="TopCharacter">Top Character</option>
                     <option value="TopLocation">Top Location</option>
-                    <option value="MostSpokenLine">Most Spoken Line</option>
                     <option value="WordsSpoken">Most Words Spoken</option>
-
-                    <!--
-                    <option value="TotalViewing">Total Viewing by Season</option>
-                    <option value="AverageRating">Average Rating by Season</option>
-                    <option value="TopCharacterAll">Top Characters (All)</option>
-                    <option value="TopCharacterSimpsons">Top Characters (Simpsons)</option>
-                    <option value="TopCharactersNonSimpsons">Top Characters (Non-Simpsons)</option>
-                    <option value="MostWatchedEpisodes">Most Watched Episodes</option>
-                    <option value="HighestRatedEpisodes">Highest Rated Episodes</option>
-                    <option value="TopLocations">Top Locations</option>
-                    <option value="TopLocationsCharacter">Top Locations by Character</option>
-                    <option value="TopLocationsEpisode">Top Location by Episode</option>
-                    <option value="TopLocationsSeason">Top Locations by Season</option>
                     <option value="MostSpokenLine">Most Spoken Line</option>
-                    <option value="MostSpokenLineCharacter">Most Spoken Line by Character</option>
-                    <option value="WordsSpokenAll">Most Words Spoken (All)</option>
-                    <option value="WordsSpokenSimpsons">Most Words Spoken (Simpsons)</option>
-                    <option value="WordsSpokenNonSimpsons">Most Words Spoken (Non-Simpsons)</option>
-                    <option value="WordsSpokenByEpisodeAll">Most Words Spoken by Episode (All)</option>
-                    <option value="WordsSpokenByEpisodeSimpsons">Most Words Spoken by Episode (Simpsons)</option>
-                    <option value="WordsSpokenByEpisodeNonSimpsons">Most Words Spoken by Episode (Non-Simpsons)</option>
-                    <option value="WordsSpokenPerEpisodeAll">Most Words Spoken per Episode (All)</option>
-                    <option value="WordsSpokenPerEpisodeSimpsons">Most Words Spoken per Episode (Simpsons)</option>
-                    <option value="WordsSpokenPerEpisodeNonSimpsons">Most Words Spoken per Episode (Non-Simpsons)</option>
-                    <option value="WordsSpokenSeasonAll">Most Words Spoken by Season (All)</option>
-                    <option value="WordsSpokenSeasonSimpsons">Most Words Spoken by Season (Simpsons)</option>
-                    <option value="WordsSpokenSeasonNonSimpsons">Most Words Spoken by Season (Non-Simpsons)</option>
-                    -->
                 </select>
             </div>
             <div id='ajaxDiv'>Additional info will be loaded here if necessary</div>
-            <div id='ajaxDiv2'>Additional info will be loaded here if necessary</div>
+            <div id='ajaxDiv2'></div>
             <div id = 'buttonDiv'>&nbsp;
                 <input type= "button" class="btn" id="computeBtn" style = "color:white; background-color: #4BB2F5;" value="Compute" onclick="getData();"></input> <!--Button-->
             </div>

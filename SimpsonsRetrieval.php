@@ -185,10 +185,19 @@
 	text-align:center;
 	font-size:18px;
     }
+
+    .btn
+    {
+        opacity: 0.5;
+    }
+
     </style>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
+
+    var btnEnabled = false;
+
     // this sets the class to "active" of the currently active link in the navbar
     $(function() {
         $('.nav li').on('click', function() {
@@ -219,12 +228,20 @@
 	// Create a function that will receive data 
 	// sent from the server and will update
 	// div section in the same page.
-	ajaxRequest.onreadystatechange = function(){
-	if(ajaxRequest.readyState == 4){
-		var ajaxDisplay = document.getElementById('ajaxDiv');
-		ajaxDisplay.innerHTML = ajaxRequest.responseText;
+	ajaxRequest.onreadystatechange = function()
+    {
+        if(ajaxRequest.readyState == 4)
+        {
+            var ajaxDisplay = document.getElementById('ajaxDiv');
+            ajaxDisplay.innerHTML = ajaxRequest.responseText;
+        }
 	}
-	}
+
+    disableBtn();
+    var ajaxDisplay = document.getElementById('ajaxDiv');
+    ajaxDisplay.innerHTML = "Names will be loaded here";
+    document.getElementById('datagrid').style.display = "none";
+
 	// Now get the value from user and pass it to
 	// server script.
 	var type = document.getElementById('type').value;
@@ -236,6 +253,12 @@
 	
 	
 	function fetchData(){
+
+        if(!btnEnabled)
+            return;
+        
+        $("body").css("cursor", "progress");
+
 		var type = document.getElementById('type').value;
 		var secondFilter = document.getElementById('name1').value;
 		$.ajax({
@@ -243,6 +266,7 @@
             url: 'SimpsonsRetrievalResult.php?type=' + type + '&secondFilter=' + secondFilter,
             data: {action: 'call_this'},
             success: function (html) {
+                $("body").css("cursor", "default");
                 document.getElementById('datagrid').style.display = "block";
 				var resultDisplay = document.getElementById('resultDisplay');
 				resultDisplay.innerHTML = html;
@@ -250,6 +274,24 @@
         });
 		
 	}
+
+    function selectionChange()
+    {
+        enableBtn();
+    }
+
+    function enableBtn()
+    {
+        btnEnabled = true;
+        document.getElementById('rtrvBtn').style.opacity = 1;
+    }
+
+    function disableBtn()
+    {
+        btnEnabled = false;
+        document.getElementById('rtrvBtn').style.opacity = 0.5;
+    }
+
     </script>
 
 </head>
@@ -302,7 +344,7 @@
         </div>
         <div id='ajaxDiv'>Names will be loaded here</div>
         <div id = 'buttonDiv'>&nbsp;
-            <input type= "button" class="btn" style = "color:white; background-color: #4BB2F5;" value="Retrieve" onclick="fetchData();"></input> <!--Button-->
+            <input type= "button" class="btn" id="rtrvBtn" style = "color:white; background-color: #4BB2F5;" value="Retrieve" onclick="fetchData();"></input> <!--Button-->
         </div>
 	</form>
 	<nav class="datagrid" id="datagrid">

@@ -32,7 +32,7 @@
 	}
 	else
 	{
-		echo '<font size = "4" color="yellow">Not Needed</font>';
+		echo '';
 	}
 
 	oci_close($connection);
