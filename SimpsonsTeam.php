@@ -233,8 +233,8 @@
 			<col span="1" style="width: 35%;">
 		</colgroup>
 		<tr> 
-			<td> <p><b><u>Kimberly Branch</u></b><br/></p> </td>
-			<td> <img/> </td>
+			<td> <p><b><u>Kimberly Branch</u></b><br/>Kimberly is a former Biochemistry graduate from Ole Miss from Fall 2007. Kimberly is currently working as the corporate Laboratory Quality Manager for Sanderson Farms, Inc. In Laurel, MS.  She is working toward a Master’s of Environmental Engineering degree. Kimberly enjoys spending time with family and making music in her spare time. Her favorite Simpson’s character is Maggie.</p> </td>
+			<td> <img src="Simpson Kimberly.JPG" alt = "Kimberly Branch" height = "100" /> </td>
 		</tr>	
 		<tr> 
 			<td> <p><b><u>Timmy Chandy</u></b><br/>Timmy is a former Computer Engineering graduate from UF in Fall 2015. Timmy is currently working as a software developer at Statefarm Insurance in Dallas, TX. In his free time he likes to read and watch movies. His favorite character is Homer on the Simpsons</p> </td>
