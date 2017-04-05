@@ -37,8 +37,6 @@ The "Explore" section will allow you to perform a lot more statistical queries o
 
 7. What are the highest-rated episodes?
 
-8. What is each character's total dialogue?
-
-More can be added based on ideas that pop into our heads throughout the project.
+And many more.
 
 We also have the ability to add characters, episodes, locations, and script lines through the Admin page.
