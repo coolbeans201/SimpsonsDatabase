@@ -79,18 +79,18 @@
                      -4px 4px 1px black,
                      -4px -2px 1px black;
     }*/
+    .datagrid {
+                font: Arial, Helvetica, sans-serif; 
+                background: #fff; 
+                -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
+                display: none;
+                text-align: center; 
+    }
     .datagrid table { 
         border-collapse: collapse;
         margin: 0 auto;
         background: #fff; 
     } 
-    .datagrid {
-                font: Arial, Helvetica, sans-serif; 
-                background: #000; 
-                -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
-                display: none;
-                text-align: center; 
-    }
     .datagrid table td, 
     .datagrid table th { padding: 3px 10px; }
     .datagrid table td { font-size: 20px; 
@@ -242,6 +242,8 @@
 
                 if(query == 'TotalViewing' || query == 'AverageRating' || query == 'MostWatchedEpisodes' || query == 'HighestRatedEpisodes')
                     enableBtn();
+                else if(query == 'TotalDialogue')
+                    disableBtn();
                 else
                 {
                     disableBtn();
@@ -454,6 +456,7 @@
                     <option value="AverageRating">Average Rating by Season</option>
                     <option value="MostWatchedEpisodes">Most Watched Episodes</option>
                     <option value="HighestRatedEpisodes">Highest Rated Episodes</option>
+                    <option value="TotalDialogue">Total Dialogue by Character</option>
                     <option value="TopCharacter">Top Character</option>
                     <option value="TopLocation">Top Location</option>
                     <option value="WordsSpoken">Most Words Spoken</option>

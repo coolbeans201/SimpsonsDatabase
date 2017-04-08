@@ -9,15 +9,18 @@
 	<meta name="copyright" content="Copyright &copy 2017, All Rights Reserved">
     <style>
     <style style="text/css">
-    .datagrid table { border-collapse: collapse;} 
 	    .datagrid {
 					font: Arial, Helvetica, sans-serif; 
 					background: #fff; 
-                    overflow: hidden; 
 					-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; 
-					overflow: scroll;
                     display: none;
+                    text-align: center; 
 					}
+    .datagrid table { 
+        border-collapse: collapse;
+        margin: 0 auto;
+        background: #fff; 
+    } 
 		.datagrid table td, 
 		.datagrid table th { padding: 3px 10px; }
 		.datagrid table td { font-size: 20px; 
@@ -348,7 +351,7 @@
         </div>
 	</form>
 	<nav class="datagrid" id="datagrid">
-	    <div id='resultDisplay'>Result Will be displayed Here</div>
+	    <div id='resultDisplay'></div>
 	</nav>
 </div>
 </body>
